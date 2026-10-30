@@ -116,7 +116,9 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
 3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.6).
-4. Weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
+4. ✓ Erledigt 30.10.2026: Direktlinks zu allen Inseraten (1.5), drei weitere Unterkünfte + Faktencheck (1.6).
+5. Gruppe über die 7 Optionen abstimmen lassen, dann Vermieteranfragen an die Favoriten.
+6. Danach weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
 
 ## Entscheidungslog
 - 29.10.2026: Freunde planen aktiv mit; eigene Web-App statt Google/Microsoft-Dokument.
