@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Annaberg 2027</title>
+<meta name="theme-color" content="#2f5d50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Annaberg 2027">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --bg:#f4f1ea; --card:#fffdf8; --ink:#1f2a26; --muted:#5f6b66; --line:#ddd6c8;
+  --accent:#2f5d50; --accent-ink:#fff; --ok:#2e7d4f; --warn:#b7791f; --bad:#b23b3b;
+  --chip:#ebe6da; --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141a18; --card:#1d2522; --ink:#e8ece9; --muted:#9aa7a1; --line:#2e3935;
+    --accent:#7fb8a4; --accent-ink:#0f1513; --ok:#6fcf97; --warn:#e0b05a; --bad:#ef7d7d;
+    --chip:#26302c; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+header{padding:20px 16px 12px;max-width:760px;margin:0 auto}
+h1{font-size:26px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:15px}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{background:var(--chip);border-radius:999px;padding:3px 10px;font-size:13px;white-space:nowrap}
+main{max-width:760px;margin:0 auto;padding:0 16px}
+section{display:none}
+section.active{display:block}
+h2{font-size:19px;margin:20px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.card h3{margin:0 0 2px;font-size:18px;line-height:1.3}
+.rank{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:8px;font-size:12px;font-weight:600;padding:1px 8px;margin-bottom:6px}
+.where{color:var(--muted);font-size:14px;margin-bottom:10px}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:10px 0}
+.price b{font-size:20px}
+.price span{color:var(--muted);font-size:14px}
+ul.checks{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px}
+ul.checks li{display:flex;gap:8px;font-size:14.5px}
+ul.checks li i{font-style:normal;width:18px;flex:none;text-align:center;font-weight:700}
+.ok i{color:var(--ok)} .q i{color:var(--warn)} .no i{color:var(--bad)}
+.plus{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+details{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;font-size:14.5px}
+details ul{margin:6px 0 0;padding-left:20px;font-size:14.5px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+a.btn,button.btn{appearance:none;border:1px solid var(--accent);background:transparent;color:var(--accent);
+  border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;text-decoration:none;cursor:pointer}
+a.btn.primary,button.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.note{font-size:14px;color:var(--muted)}
+.excluded li{margin:4px 0;font-size:14.5px}
+#map{height:62vh;min-height:320px;border-radius:14px;border:1px solid var(--line);margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:42%;padding-right:10px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);z-index:1000}
+nav button{flex:1;max-width:190px;appearance:none;border:0;background:none;color:var(--muted);font:inherit;font-size:12.5px;
+  padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav button .ico{font-size:20px;line-height:1}
+nav button.active{color:var(--accent);font-weight:600}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);
+  padding:8px 14px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2000}
+.toast.show{opacity:1}
+.soon .card{opacity:.75}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Annaberg 2027</h1>
+  <div class="sub">Wanderwoche im Lammertal – unser gemeinsamer Plan</div>
+  <div class="facts" id="facts"></div>
+</header>
+
+<main>
+  <section id="tab-unterkunft" class="active">
+    <h2>Unterkunft – Vorauswahl</h2>
+    <p class="note" id="stand"></p>
+    <div id="cards"></div>
+
+    <div class="card">
+      <h3>Abstimmen</h3>
+      <p class="note">Bis die Abstimmung hier in der App läuft, stimmen wir per WhatsApp-Umfrage ab. Mit dem Button kopierst du die Optionen und legst in der Gruppe eine Umfrage an (mehrere Antworten erlauben).</p>
+      <div class="actions"><button class="btn primary" id="copyPoll">Umfrage-Optionen kopieren</button></div>
+    </div>
+
+    <h2>Geprüft, aber ohne Hund</h2>
+    <div class="card"><ul class="excluded" id="excluded"></ul></div>
+  </section>
+
+  <section id="tab-karte">
+    <h2>Karte</h2>
+    <p class="note">Lagen sind ungefähr – die genaue Adresse nennen die Vermieter meist erst bei Buchung.</p>
+    <div id="map"></div>
+  </section>
+
+  <section id="tab-rahmen">
+    <h2>Unser Rahmen</h2>
+    <div class="card"><table id="rahmen"></table></div>
+    <h2>Muss-Kriterien Unterkunft</h2>
+    <div class="card"><ul class="checks" id="muss"></ul></div>
+    <h2>Pluspunkte</h2>
+    <div class="card"><div class="plus" id="plus"></div></div>
+  </section>
+
+  <section id="tab-bald" class="soon">
+    <h2>Kommt als Nächstes</h2>
+    <p class="note">Diese Bereiche schalten wir frei, sobald die Unterkunft steht und alle mitplanen.</p>
+    <div id="soon"></div>
+  </section>
+</main>
+
+<nav>
+  <button data-tab="unterkunft" class="active"><span class="ico">🏠</span>Unterkunft</button>
+  <button data-tab="karte"><span class="ico">🗺️</span>Karte</button>
+  <button data-tab="rahmen"><span class="ico">📋</span>Rahmen</button>
+  <button data-tab="bald"><span class="ico">⏳</span>Demnächst</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<!-- Daten: bewusst getrennt vom Code, damit sie später 1:1 nach Supabase wandern können -->
+<script type="application/json" id="trip-data">
+{
+  "trip": {
+    "title": "Annaberg 2027",
+    "from": "2027-09-11", "to": "2027-09-18",
+    "facts": ["Sa 11.–Sa 18.09.2027", "7 Nächte", "4 Personen + Golden Retriever", "2 Autos", "Budget 1.000–2.000 €"],
+    "stand": "Stand 30.10.2026 · Preise sind „ab“-Preise der Portale, der echte Wochenpreis für September kommt erst mit der Anfrage."
+  },
+  "rahmen": [
+    ["Zeitraum", "Sa 11.09. – Sa 18.09.2027 (Samstag = üblicher Wechseltag)"],
+    ["Gruppe", "2 Männer, 2 Frauen (keine Paare) + Golden Retriever"],
+    ["Anreise", "mindestens zwei Autos"],
+    ["Wandern", "mittel bis sportlich, 4–6+ Std., 500–900+ Hm, mit Einkehr"],
+    ["Klettersteige", "A–C, ohne Hund, Ausrüstung wird geliehen"],
+    ["Essen", "eher selbst kochen oder halb/halb"]
+  ],
+  "muss": [
+    "Hund erlaubt und darf ein paar Stunden allein bleiben",
+    "Mind. 2 Schlafzimmer, getrennte Betten bevorzugt",
+    "Mind. 1 Bad + separates WC",
+    "Voll ausgestattete Küche, Esstisch für 4",
+    "2 Parkplätze",
+    "ca. 1.000–2.000 € für die Woche, alles inklusive"
+  ],
+  "plus": ["3–4 Schlafzimmer", "Terrasse mit Bergblick", "eingezäunter Garten", "Sauna", "Waschmaschine / Trockenraum", "WLAN", "Gästekarte", "Supermarkt in der Nähe"],
+  "kurtaxe": {"proPersonNacht": 4.75, "hinweis": "Ortstaxe inkl. Mobilitätsabgabe laut einem Annaberger Vermieter, Stand 2026"},
+  "unterkuenfte": [
+    {
+      "id": "bauernhaus-promberg",
+      "name": "Bauernhaus über Promberg",
+      "ort": "Annaberg-Lungötz, Alleinlage oberhalb Ortsteil Promberg",
+      "lat": 47.543, "lng": 13.422, "lageUngefaehr": true,
+      "ab": 107,
+      "bewertung": "9,8/10 (12 Bewertungen)",
+      "kurz": "Urig-rustikales Bauernhaus, ca. 120 m², ruhige Alleinlage auf einer Anhöhe mit Blick aufs Tennengebirge. Kachelofen, alte Holzdielen.",
+      "checks": [
+        ["ok", "Hunde willkommen (Hunde-Inserat)"],
+        ["ok", "4 Schlafzimmer, eins davon Zweibettzimmer – jeder kann ein eigenes Zimmer haben"],
+        ["ok", "2 Bäder mit Dusche + WC (je eins pro Etage)"],
+        ["ok", "Küche mit Geschirrspüler, Essbereich für 10"],
+        ["q", "Parkplatz vorhanden – ob Platz für 2 Autos, nachfragen"],
+        ["q", "Hund allein im Haus erlaubt? nachfragen"]
+      ],
+      "plus": ["eingezäunter Garten", "Panorama-Baumhaussauna", "Kachelofen", "Grill", "Alleinlage"],
+      "fragen": ["Wochenpreis 11.–18.09.2027 inkl. Endreinigung, Hundegebühr, Ortstaxe?", "Platz für 2 Autos?", "Darf der Hund einige Stunden allein im Haus bleiben?", "Wie weit ist der nächste Supermarkt?"],
+      "contra": ["Für 10 Personen ausgelegt – für uns viel Platz, ggf. höherer Grundpreis", "Direktlink zum Inserat fehlt noch (nur über die Hunde-Übersicht auffindbar)"],
+      "link": "https://www.ferienwohnungen.de/urlaub-mit-hund/europa/oesterreich/annaberg-lungoetz/",
+      "linkText": "Zur Übersicht (ferienwohnungen.de)"
+    },
+    {
+      "id": "alpendorf-75",
+      "name": "Chalet #75 im Alpendorf Dachstein West",
+      "ort": "Annaberg, Feriendorf am Hang oberhalb des Orts",
+      "lat": 47.51472, "lng": 13.45087, "lageUngefaehr": false,
+      "ab": 114,
+      "bewertung": "neu gelistet; erster Gast Sept. 2026: 10/10",
+      "kurz": "Holzchalet, 90 m², in einer Anlage mit Hallenbad, Sauna, Café und Minimarkt. Ca. 1 km zur Donnerkogelbahn.",
+      "checks": [
+        ["ok", "Hunde erlaubt"],
+        ["ok", "3 Schlafzimmer: 2× Doppelbett, 1× zwei Einzelbetten"],
+        ["ok", "2 Bäder (Dusche/WC + zweites Bad)"],
+        ["ok", "Voll ausgestattete Küche mit Geschirrspüler"],
+        ["ok", "Kostenlose Parkplätze im Freien"],
+        ["q", "Hund allein im Chalet erlaubt? nachfragen"]
+      ],
+      "plus": ["Hallenbad + Sauna", "Terrasse + Balkon", "Waschmaschine", "WLAN", "Mobilitätsticket inklusive", "kostenlos stornierbar bis 30 Tage vorher"],
+      "fragen": ["Wochenpreis 11.–18.09.2027 inkl. Endreinigung und Hundegebühr?", "Hund allein im Chalet erlaubt?"],
+      "contra": ["Feriendorf statt Einzelhaus – weniger Privatsphäre", "Minimarkt vor Ort, richtiger Supermarkt erst im Tal"],
+      "link": "https://www.traum-ferienwohnungen.de/757831/",
+      "linkText": "Zum Inserat (traum-ferienwohnungen.de)"
+    },
+    {
+      "id": "alpendorf-10p",
+      "name": "Großes Chalet mit eigener Sauna, Alpendorf",
+      "ort": "Annaberg, Alpendorf Dachstein West",
+      "lat": 47.5139, "lng": 13.4522, "lageUngefaehr": true,
+      "ab": 165,
+      "bewertung": "9,6/10 (11 Bewertungen)",
+      "kurz": "138 m², 4 Schlafzimmer, eigene finnische Sauna im Bad – plus Hallenbad und Sauna der Anlage.",
+      "checks": [
+        ["ok", "Hunde willkommen (Hunde-Inserat)"],
+        ["ok", "4 Schlafzimmer (alle mit Doppelbett) – jeder ein eigenes Zimmer"],
+        ["ok", "2 Bäder + separates WC"],
+        ["ok", "Voll ausgestattete Küche"],
+        ["ok", "Kostenlose Parkplätze"],
+        ["q", "Hund allein erlaubt? nachfragen"]
+      ],
+      "plus": ["eigene Sauna", "Hallenbad der Anlage", "Terrasse + Balkon", "WLAN", "kostenlose Stornierung"],
+      "fragen": ["Wochenpreis inkl. Nebenkosten?", "Hund allein erlaubt?"],
+      "contra": ["Teuerste Option – geschätzt eher am oberen Budgetrand", "Nur Doppelbetten"],
+      "link": "https://www.ferienwohnungen.de/urlaub-mit-hund/europa/oesterreich/annaberg-lungoetz/",
+      "linkText": "Zur Übersicht (ferienwohnungen.de)"
+    },
+    {
+      "id": "schipplegg",
+      "name": "Haus Schipplegg, Ferienwohnung 1",
+      "ort": "Annaberg, absolute Alleinlage auf 950 m, ca. 3 km vom Ort",
+      "lat": 47.5195, "lng": 13.4445, "lageUngefaehr": true,
+      "ab": null,
+      "bewertung": "keine Bewertungen auf dem Portal",
+      "kurz": "65 m² Ferienwohnung am Waldrand am Fuß der Bischofsmütze, ca. 700 m zur Donnerkogelbahn, Wanderungen direkt ab Haus.",
+      "checks": [
+        ["q", "Haustiere nach Absprache"],
+        ["q", "2 Schlafzimmer, beide mit Doppelbett"],
+        ["no", "Nur 1 Bad – separates WC nicht erwähnt"],
+        ["ok", "Küche mit Geschirrspüler"],
+        ["q", "Parkplatz vorhanden, Anzahl unklar"]
+      ],
+      "plus": ["Alleinlage", "Bergblick", "Waschmaschine", "WLAN", "Brötchenservice", "kostenlos stornierbar bis 60 Tage vorher"],
+      "fragen": ["Preis für die Woche?", "Hund erlaubt? Allein lassen möglich?", "Separates WC vorhanden?"],
+      "contra": ["Knapp: nur 2 Doppelzimmer, 1 Bad", "Preis nur auf Anfrage"],
+      "link": "https://www.ferienhausmiete.de/161143.htm",
+      "linkText": "Zum Inserat (ferienhausmiete.de)"
+    }
+  ],
+  "ohneHund": [
+    ["Haus Dolomitenblick (Alpendorf)", "4,9/5 bei 32 Bewertungen, Zweibettzimmer, eingezäunter Garten – leider keine Haustiere", "https://www.ferienhausmiete.de/174583.htm"],
+    ["Chalet Alpenstern", "Holzblockhaus mit Sauna und Dampfbad – keine Haustiere", "https://www.ferienhausmiete.de/59462.htm"],
+    ["Chalet Rosa Maria", "4 Schlafzimmer, Sauna, Bad + separates WC – keine Haustiere", "https://www.ferienhausmiete.de/413768.htm"],
+    ["Chalet Almhaus 30", "günstig, 3 Schlafzimmer – keine Haustiere", "https://www.ferienhausmiete.de/20499.htm"]
+  ],
+  "demnaechst": [
+    ["🗳️ Abstimmen", "über Unterkünfte, Touren und Restaurants – direkt hier statt per WhatsApp"],
+    ["📌 Ideen-Pinnwand", "jeder trägt Vorschläge mit Link ein"],
+    ["💬 Kommentare", "zu jedem Vorschlag"],
+    ["📅 Tagesplan", "Wanderungen, Klettersteig-Tage (ohne Hund), Schlechtwetter-Alternativen"],
+    ["💶 Kostenaufteilung", "wer hat was bezahlt, wer schuldet wem"],
+    ["🎒 Packliste", "gemeinsam, persönlich und für den Hund"]
+  ]
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = JSON.parse(document.getElementById('trip-data').textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur = n => n.toLocaleString('de-DE', {maximumFractionDigits:0}) + ' €';
+const nights = 7, persons = 4;
+
+$('#facts').innerHTML = DATA.trip.facts.map(f => `<span class="chip">${esc(f)}</span>`).join('');
+$('#stand').textContent = DATA.trip.stand;
+
+const icon = {ok:'✓', q:'?', no:'✗'};
+$('#cards').innerHTML = DATA.unterkuenfte.map((u, i) => {
+  const taxe = DATA.kurtaxe.proPersonNacht * persons * nights;
+  const price = u.ab
+    ? `<b>ab ${u.ab} € / Nacht</b><span>≈ ${eur(u.ab * nights + taxe)} pro Woche (Miete + Ortstaxe), ohne Reinigung &amp; Hund</span>`
+    : `<b>Preis auf Anfrage</b>`;
+  return `<article class="card" id="u-${esc(u.id)}">
+    <span class="rank">Option ${i + 1}</span>
+    <h3>${esc(u.name)}</h3>
+    <div class="where">${esc(u.ort)} · ${esc(u.bewertung)}</div>
+    <div>${esc(u.kurz)}</div>
+    <div class="price">${price}</div>
+    <ul class="checks">${u.checks.map(([s, t]) => `<li class="${s}"><i>${icon[s]}</i>${esc(t)}</li>`).join('')}</ul>
+    <div class="plus">${u.plus.map(p => `<span class="chip">${esc(p)}</span>`).join('')}</div>
+    <details><summary>Nachteile</summary><ul>${u.contra.map(c => `<li>${esc(c)}</li>`).join('')}</ul></details>
+    <details><summary>Fragen an den Vermieter</summary><ul>${u.fragen.map(c => `<li>${esc(c)}</li>`).join('')}</ul></details>
+    <div class="actions"><a class="btn primary" href="${esc(u.link)}" target="_blank" rel="noopener">${esc(u.linkText)}</a>
+      <button class="btn" data-map="${esc(u.id)}">Auf Karte zeigen</button></div>
+  </article>`;
+}).join('');
+
+$('#excluded').innerHTML = DATA.ohneHund.map(([n, t, l]) =>
+  `<li><a href="${esc(l)}" target="_blank" rel="noopener">${esc(n)}</a> – ${esc(t)}</li>`).join('');
+$('#rahmen').innerHTML = DATA.rahmen.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');
+$('#muss').innerHTML = DATA.muss.map(m => `<li class="ok"><i>•</i>${esc(m)}</li>`).join('');
+$('#plus').innerHTML = DATA.plus.map(p => `<span class="chip">${esc(p)}</span>`).join('');
+$('#soon').innerHTML = DATA.demnaechst.map(([t, d]) => `<div class="card"><h3>${esc(t)}</h3><div class="note">${esc(d)}</div></div>`).join('');
+
+// Toast
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
+
+// WhatsApp-Umfrage
+$('#copyPoll').addEventListener('click', async () => {
+  const text = 'Unterkunft Annaberg 2027 – welche gefällt euch?\n' +
+    DATA.unterkuenfte.map((u, i) => `Option ${i + 1}: ${u.name}`).join('\n');
+  try { await navigator.clipboard.writeText(text); toast('Kopiert – jetzt in WhatsApp einfügen'); }
+  catch { prompt('Zum Kopieren markieren:', text); }
+});
+
+// Tabs
+let map, markers = {};
+function show(tab){
+  document.querySelectorAll('section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  window.scrollTo(0, 0);
+  if (tab === 'karte') initMap();
+}
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
+
+function initMap(){
+  if (typeof L === 'undefined') { $('#map').innerHTML = '<p class="note" style="padding:16px">Karte konnte nicht geladen werden.</p>'; return; }
+  if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
+  map = L.map('map', {scrollWheelZoom:false}).setView([47.53, 13.44], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18, attribution: '© OpenStreetMap-Mitwirkende'
+  }).addTo(map);
+  const bounds = [];
+  DATA.unterkuenfte.forEach((u, i) => {
+    const m = u.lageUngefaehr
+      ? L.circle([u.lat, u.lng], {radius: 350, color: '#2f5d50', fillOpacity: .25})
+      : L.marker([u.lat, u.lng]);
+    m.addTo(map).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
+    markers[u.id] = m; bounds.push([u.lat, u.lng]);
+  });
+  L.marker([47.5337, 13.4363], {opacity:.7}).addTo(map).bindPopup('Annaberg Ort (ungefähr)');
+  map.fitBounds(bounds, {padding: [40, 40]});
+}
+document.querySelectorAll('[data-map]').forEach(b => b.addEventListener('click', () => {
+  show('karte');
+  setTimeout(() => { const m = markers[b.dataset.map]; if (m) { map.setView(m.getLatLng(), 14); m.openPopup(); } }, 120);
+}));
+</script>
+</body>
+</html>
