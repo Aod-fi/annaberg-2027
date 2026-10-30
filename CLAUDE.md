@@ -1,7 +1,7 @@
 # CLAUDE.md – Projekt „Annaberg 2027“
 
 Diese Datei ist das Projektgedächtnis für Claude Code. Sie wird bei jedem Start gelesen.
-Stand: 30.10.2026. Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
+Stand: 30.10.2026 (App-Version 1.4). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
 
 ## Arbeitsweise mit Uwe (verbindlich)
 - Sprache: Deutsch.
@@ -82,16 +82,35 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - Vor jedem Push: Seite lokal im Browser (Handybreite ~390 px) prüfen, Konsole fehlerfrei.
 
 ## Offene Punkte
+**Organisatorisch (Gruppe)**
 - Wer bucht und bezahlt final?
 - Kostenaufteilung: gleich oder nach Verbrauch?
-- Nur Lammertal oder auch Gosau/Abtenau o. Ä.?
+- ✓ Umkreis geklärt 30.10.2026: bis ca. 1 Std. Fahrt (Gosau, Abtenau, Filzmoos, Ramsau, Hallstatt).
+
+**Wartet auf die Gruppe**
+- Rückmeldung der Freunde zur App abwarten, dann Vermieteranfragen an die Favoriten (Wochenpreis inkl. Nebenkosten, 2 Parkplätze, Hund allein) → Ergebnisse im JSON-Block nachtragen.
+- Ergebnisse der WhatsApp-Umfragen (Unterkunft, Programm) eintragen; „Was gerade ansteht“ in der Übersicht aktualisieren.
+
+**App-Ideen (Backlog, von Uwe noch nicht beauftragt)**
+- Kostenrechner: Unterkunft + Ortstaxe + Sprit für 2 Autos, pro Person.
+- Packliste: gemeinsam, persönlich, Hund (vorerst nur pro Gerät abhakbar).
+- Stufe 2 mit Supabase: Abstimmen, Kommentare, Ideen in der App (erst Fragen, dann Spezifikation zur Freigabe, dann bauen).
+
+**Recherche-Ideen (Backlog)**
+- Hund: Badestellen, Tierarzt-Notdienst, hundefreundliche Almen; Hunderegeln der Hütten/Restaurants mit „?“ klären.
+- Praktisches: Supermärkte, Bäcker, Hofläden, Gästekarte/Mobilitätsticket, Anreise und Vignette.
+- Weitere Aktivitäten: Sommerrodelbahn, E-Bike-Verleih, Almkäse u. Ä.
+
+**Zu prüfen**
+- Ortstaxe: offizieller Betrag steht vermutlich in `quellen/2026-07-01_Verordnung_besondere_Naechtigungsabgabe_Annaberg-Lungoetz.pdf` (Text für Claude nicht lesbar) – Uwe liest nach.
+- Kopier-Button auf Android und „Route zum Start“ (Apple Karten) auf dem iPhone noch nicht auf echtem Gerät getestet.
+- Vor der Reise: Termine/Preise 2027 prüfen (Klettersteigkurs Ramsau, Donnerkogel- und Gosaukammbahn, Hüttenöffnungszeiten, Lammerklamm).
 
 ## Nächste Schritte
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
-3. Anfragen an die Favoriten (Wochenpreis, Parkplätze, Hund allein) → Ergebnisse im JSON-Block nachtragen.
-4. ✓ Erste Recherche 30.10.2026 (Tab „Programm“). Nächster Schritt: Umfragen in der Gruppe, dann Favoriten genauer prüfen.
-5. Stufe 2 mit Supabase konzipieren (erst Fragen, dann Spezifikation zur Freigabe, dann bauen).
+3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.4).
+4. Weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
 
 ## Entscheidungslog
 - 29.10.2026: Freunde planen aktiv mit; eigene Web-App statt Google/Microsoft-Dokument.
