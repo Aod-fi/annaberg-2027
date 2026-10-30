@@ -53,7 +53,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ### Stufe 1 (jetzt): statische Anzeigeseite
 - `index.html` – eine einzige, eigenständige Datei, mobil optimiert (Homescreen-App), hell/dunkel.
 - Inhalte stehen im JSON-Block `<script type="application/json" id="trip-data">` – **Inhalte dort ändern, nicht im Code**.
-- Tabs: Unterkunft (Karten mit Muss-Check ✓/?/✗, Pluspunkte, Nachteile, Vermieterfragen), Karte (Leaflet 1.9.4 von cdnjs mit SRI-Prüfsummen + OpenStreetMap, Unterkünfte als nummerierte Pins, ungenaue Lagen zusätzlich mit Kreis, Orientierungspunkte aus `orte`), Rahmen, Demnächst. Aktiver Tab steht in der Adresse (`#karte` usw.), Zurück-Taste wechselt Tabs.
+- Tabs (untere Leiste, bleibt): Übersicht (Start: Countdown, Einleitung, „Was gerade ansteht“, Kacheln, Rahmen, Versionshinweis; JSON `uebersicht` – **„anstehend“ bei jedem Stand aktuell halten**), Unterkunft (Karten mit Muss-Check ✓/?/✗, Pluspunkte, Nachteile, Vermieterfragen, darunter unsere Kriterien), Karte (Leaflet 1.9.4 von cdnjs mit SRI-Prüfsummen + OpenStreetMap, Unterkünfte als nummerierte Pins, ungenaue Lagen zusätzlich mit Kreis, Orientierungspunkte aus `orte`), Programm, Demnächst. Der frühere Tab „Rahmen“ ist in der Übersicht aufgegangen (alter Link #rahmen führt zur Übersicht). Aktiver Tab steht in der Adresse (`#karte` usw.), Zurück-Taste wechselt Tabs.
 - Homescreen: `manifest.webmanifest` + `icons/` (Android: 192/512 + maskable; iPhone: `apple-touch-icon.png`). Icon-Quelle ist ein SVG (Berge + „2027“), mit `qlmanage`/`sips` zu PNG gerendert.
 - Nächte werden aus `trip.from`/`trip.to` berechnet, Personen aus `trip.personen`.
 - Filter: Programm-Tab mit Leiste (bleibt beim Scrollen oben) für einen Bereich oder „Alle“ plus „nur mit Hund ✓“; Auswahl wird pro Gerät gemerkt (localStorage). Karte mit Ein/Aus-Chips für Unterkünfte, jede Programm-Kategorie und Orte; „Auf Karte zeigen“ schaltet die passende Ebene automatisch ein.
@@ -70,6 +70,11 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - Nur den öffentlichen anon/publishable Key ins Frontend. Den **service_role-Key niemals** ins Repo oder in den Code.
 - Datenstruktur aus dem JSON-Block soll 1:1 in Tabellen übergehen (trip, unterkuenfte, ideen, stimmen, kommentare, tagesplan, ausgaben, packliste).
 - Kein Offline-Modus nötig.
+
+### Versionierung
+- Versionsnummer + „Was ist neu“ stehen im JSON `versionen` (neueste zuerst) und werden in der Übersicht angezeigt.
+- Bei jeder Veröffentlichung mit sichtbarer Änderung: neuen Eintrag oben in `versionen` (Nummer x.y, Datum, 1–3 Punkte in Gruppen-Sprache), committen, Git-Tag `vx.y` setzen und mit pushen (`git push origin main --tags`). Kleine Inhaltskorrekturen ohne neue Funktion: zweite Stelle hochzählen; neue Bereiche/Funktionen: ebenfalls zweite Stelle; großer Umbau (z. B. Stufe 2 Supabase): 2.0.
+- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung.
 
 ### Grundregeln
 - **Keine sensiblen Daten** auf der Seite oder im Repo: keine Buchungsnummern, Adressen der gebuchten Unterkunft, Telefonnummern, Zugangsdaten.
@@ -95,6 +100,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Nutzung fast nur am Handy, kein Offline-Modus.
 - 30.10.2026: Wechsel von claude.ai/Cowork zu Claude Code für Umsetzung und Recherche.
 - 30.10.2026: Seite muss auf iPhone **und Android** funktionieren (nicht alle in der Gruppe haben ein iPhone) – Homescreen-Icon per Web-Manifest + apple-touch-icon.
+- 30.10.2026: Neuer Start-Tab „Übersicht“ statt „Rahmen“; Versionierung (Nummer + „Was ist neu“ in der App, Git-Tags).
 - 30.10.2026: Filter im Programm-Tab und auf der Karte gewünscht (weniger Scrollen); untere Tab-Leiste bleibt auf jeden Fall.
 - 30.10.2026: Ausbau gewählt: „Route zum Start“-Buttons und Wetter (Klima jetzt, Live-Vorhersage kurz vor der Reise). Kostenrechner, Packliste, weitere Recherche und Stufe 2 vorerst zurückgestellt.
 - 30.10.2026: Programm-Wünsche: Umkreis bis ca. 1 Std. Fahrt (inkl. Gosau, Filzmoos, Ramsau, Hallstatt); Gruppe = Klettersteig-Anfänger → geführter Einsteigertag; kein fester Tagesplan, Vorschlagsliste und Entscheidung vor Ort nach Wetter; Restaurants bodenständig, eher günstig, hundefreundlich; Darstellung als Tab „Programm“ mit Umfrage-Button pro Abschnitt.

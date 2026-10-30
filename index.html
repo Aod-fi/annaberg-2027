@@ -32,6 +32,21 @@ html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 header{padding:20px 16px 12px;max-width:760px;margin:0 auto}
+body:not([data-tab="uebersicht"]) header{padding:12px 16px 0}
+body:not([data-tab="uebersicht"]) header h1{font-size:18px;color:var(--muted)}
+body:not([data-tab="uebersicht"]) header .sub{display:none}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.tile{appearance:none;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;
+  font:inherit;color:var(--ink);cursor:pointer;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-start}
+.tile b{display:block;font-size:16px;margin:4px 0 2px}
+.tile span{color:var(--muted);font-size:13.5px;line-height:1.35;display:block}
+.tile .ico{font-size:24px}
+.countdown{font-size:15px;color:var(--accent);font-weight:600;margin-top:8px}
+.todo{list-style:none;padding:0;margin:6px 0 0}
+.todo li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:15px}
+.todo li:last-child{border-bottom:0}
+.todo li.done{color:var(--muted);text-decoration:line-through}
+.version{font-size:13px;color:var(--muted);text-align:center;margin:20px 0 8px}
 h1{font-size:26px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
 .sub{color:var(--muted);font-size:15px}
 .facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
@@ -102,11 +117,24 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
 <header>
   <h1>Annaberg 2027</h1>
   <div class="sub">Wanderwoche im Lammertal – unser gemeinsamer Plan</div>
-  <div class="facts" id="facts"></div>
 </header>
 
 <main>
-  <section id="tab-unterkunft" class="active">
+  <section id="tab-uebersicht" class="active">
+    <div class="countdown" id="countdown"></div>
+    <div class="card"><p style="margin:0" id="einleitung"></p></div>
+    <h2>Was gerade ansteht</h2>
+    <div class="card"><ul class="todo" id="anstehend"></ul></div>
+    <h2>Stand</h2>
+    <div class="tiles" id="tiles"></div>
+    <h2>Unser Rahmen</h2>
+    <div class="facts" id="facts"></div>
+    <div class="card"><table id="rahmen"></table></div>
+    <div class="card" id="neu"></div>
+    <p class="version" id="version"></p>
+  </section>
+
+  <section id="tab-unterkunft">
     <h2>Unterkunft – Vorauswahl</h2>
     <p class="note" id="stand"></p>
     <p class="note" id="taxe"></p>
@@ -116,6 +144,14 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       <h3>Abstimmen</h3>
       <p class="note">Bis die Abstimmung hier in der App läuft, stimmen wir per WhatsApp-Umfrage ab. Mit dem Button kopierst du die Optionen und legst in der Gruppe eine Umfrage an (mehrere Antworten erlauben).</p>
       <div class="actions"><button class="btn primary" id="copyPoll">Umfrage-Optionen kopieren</button></div>
+    </div>
+
+    <h2>Unsere Kriterien</h2>
+    <div class="card">
+      <h3>Muss</h3>
+      <ul class="checks" id="muss"></ul>
+      <h3 style="margin-top:12px">Pluspunkte</h3>
+      <div class="plus" id="plus"></div>
     </div>
 
     <h2>Geprüft, aber ohne Hund</h2>
@@ -138,15 +174,6 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
     <div id="map"></div>
   </section>
 
-  <section id="tab-rahmen">
-    <h2>Unser Rahmen</h2>
-    <div class="card"><table id="rahmen"></table></div>
-    <h2>Muss-Kriterien Unterkunft</h2>
-    <div class="card"><ul class="checks" id="muss"></ul></div>
-    <h2>Pluspunkte</h2>
-    <div class="card"><div class="plus" id="plus"></div></div>
-  </section>
-
   <section id="tab-bald" class="soon">
     <h2>Kommt als Nächstes</h2>
     <p class="note">Diese Bereiche schalten wir frei, sobald die Unterkunft steht und alle mitplanen.</p>
@@ -155,10 +182,10 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
 </main>
 
 <nav>
-  <button data-tab="unterkunft" class="active"><span class="ico">🏠</span>Unterkunft</button>
+  <button data-tab="uebersicht" class="active"><span class="ico">🏔️</span>Übersicht</button>
+  <button data-tab="unterkunft"><span class="ico">🏠</span>Unterkunft</button>
   <button data-tab="programm"><span class="ico">🥾</span>Programm</button>
   <button data-tab="karte"><span class="ico">🗺️</span>Karte</button>
-  <button data-tab="rahmen"><span class="ico">📋</span>Rahmen</button>
   <button data-tab="bald"><span class="ico">⏳</span>Demnächst</button>
 </nav>
 <div class="toast" id="toast"></div>
@@ -178,6 +205,67 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
     "facts": ["Sa 11.–Sa 18.09.2027", "7 Nächte", "4 Personen + Golden Retriever", "2 Autos", "Budget 1.000–2.000 €"],
     "stand": "Stand 30.10.2026 · Preise sind „ab“-Preise der Portale, der echte Wochenpreis für September kommt erst mit der Anfrage."
   },
+  "uebersicht": {
+    "einleitung": "Hier planen wir zusammen unsere Wanderwoche im Lammertal. Schau dir Unterkünfte und Programm an – abgestimmt wird vorerst in unserer WhatsApp-Gruppe. Tipp: Seite zum Home-Bildschirm hinzufügen.",
+    "anstehend": [
+      [
+        false,
+        "In der WhatsApp-Umfrage über die Unterkunft abstimmen"
+      ],
+      [
+        false,
+        "Programm-Vorschläge anschauen – Umfragen dazu folgen"
+      ],
+      [
+        true,
+        "Planungsseite online und in der Gruppe geteilt"
+      ]
+    ],
+    "unterkunftStatus": "Vorauswahl, noch nicht gebucht"
+  },
+  "versionen": [
+    {
+      "nr": "1.4",
+      "datum": "30.10.2026",
+      "neu": [
+        "Neue Startseite „Übersicht“ mit dem Wichtigsten auf einen Blick",
+        "„Rahmen“ ist jetzt Teil der Übersicht, Kriterien stehen bei der Unterkunft",
+        "Versionsnummer und „Was ist neu“"
+      ]
+    },
+    {
+      "nr": "1.3",
+      "datum": "30.10.2026",
+      "neu": [
+        "Filter im Programm und auf der Karte",
+        "„Route zum Start“ öffnet Apple Karten bzw. Google Maps",
+        "Wetter: Septemberklima, ab Ende August echte Vorhersage"
+      ]
+    },
+    {
+      "nr": "1.2",
+      "datum": "30.10.2026",
+      "neu": [
+        "Programm: Wanderungen, Klettersteige, Hütten, Restaurants, Schlechtwetter – mit Quellen"
+      ]
+    },
+    {
+      "nr": "1.1",
+      "datum": "30.10.2026",
+      "neu": [
+        "Eigenes Homescreen-Icon für iPhone und Android",
+        "Kartenpunkte korrigiert, nummerierte Unterkünfte",
+        "Ortstaxe mit Quellen"
+      ]
+    },
+    {
+      "nr": "1.0",
+      "datum": "30.10.2026",
+      "neu": [
+        "Erste Version: Unterkünfte, Karte, Rahmen, WhatsApp-Umfrage"
+      ]
+    }
+  ],
   "rahmen": [
     ["Zeitraum", "Sa 11.09. – Sa 18.09.2027 (Samstag = üblicher Wechseltag)"],
     ["Gruppe", "2 Männer, 2 Frauen (keine Paare) + Golden Retriever"],
@@ -691,6 +779,29 @@ function renderWetter(){
 }
 renderWetter();
 
+// Übersicht
+const U = DATA.uebersicht;
+{
+  const today = new Date(); today.setHours(12, 0, 0, 0);
+  const tage = Math.round((day(DATA.trip.from) - today) / 864e5);
+  $('#countdown').textContent = tage > 0 ? `⏳ Noch ${tage} Tage bis zur Anreise` : tage > -7 ? '🥾 Wir sind im Urlaub!' : '';
+}
+$('#einleitung').textContent = U.einleitung;
+$('#anstehend').innerHTML = U.anstehend.map(([done, t]) => `<li class="${done ? 'done' : ''}"><span>${done ? '✅' : '⬜'}</span>${esc(t)}</li>`).join('');
+const progAnzahl = P.abschnitte.reduce((n, a) => n + a.items.length, 0);
+const kurz = P.abschnitte.map(a => `${a.items.length} ${kurzTitel[a.id] || a.titel}`).join(', ');
+$('#tiles').innerHTML = [
+  ['unterkunft', '🏠', 'Unterkunft', `${DATA.unterkuenfte.length} Optionen · ${U.unterkunftStatus}`],
+  ['programm', '🥾', 'Programm', `${progAnzahl} Vorschläge: ${kurz}`],
+  ['karte', '🗺️', 'Karte', 'Unterkünfte und Programm auf einen Blick'],
+  ['programm', '🌤️', 'Wetter', `Mitte September meist ${Math.round(W.klima.minSchnitt)}–${Math.round(W.klima.maxSchnitt)} °C`]
+].map(([tab, ico, t, d]) => `<button class="tile" data-go="${tab}"><span class="ico">${ico}</span><b>${esc(t)}</b><span>${esc(d)}</span></button>`).join('');
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+const V = DATA.versionen;
+$('#neu').innerHTML = `<h3>Neu in Version ${esc(V[0].nr)}</h3><ul style="margin:6px 0 0;padding-left:20px">${V[0].neu.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+  <details><summary>Frühere Versionen</summary>${V.slice(1).map(v => `<p class="note" style="margin:8px 0 2px"><b>${esc(v.nr)}</b> · ${esc(v.datum)}</p><ul style="margin:0;padding-left:20px;font-size:14.5px">${v.neu.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join('')}</details>`;
+$('#version').textContent = `Version ${V[0].nr} · Stand ${V[0].datum}`;
+
 // Toast
 function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 
@@ -709,9 +820,10 @@ document.querySelectorAll('[data-poll]').forEach(b => b.addEventListener('click'
 // Tabs
 let map, markers = {};
 // Tab steht in der Adresse (#karte), damit Neuladen, Zurück-Taste und Direktlinks funktionieren
-const TABS = ['unterkunft', 'programm', 'karte', 'rahmen', 'bald'];
+const TABS = ['uebersicht', 'unterkunft', 'programm', 'karte', 'bald'];
 function show(tab){
-  if (!TABS.includes(tab)) tab = 'unterkunft';
+  if (!TABS.includes(tab)) tab = 'uebersicht';
+  document.body.dataset.tab = tab;
   document.querySelectorAll('section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   window.scrollTo(0, 0);
