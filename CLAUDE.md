@@ -56,6 +56,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - Tabs: Unterkunft (Karten mit Muss-Check ✓/?/✗, Pluspunkte, Nachteile, Vermieterfragen), Karte (Leaflet 1.9.4 von cdnjs mit SRI-Prüfsummen + OpenStreetMap, Unterkünfte als nummerierte Pins, ungenaue Lagen zusätzlich mit Kreis, Orientierungspunkte aus `orte`), Rahmen, Demnächst. Aktiver Tab steht in der Adresse (`#karte` usw.), Zurück-Taste wechselt Tabs.
 - Homescreen: `manifest.webmanifest` + `icons/` (Android: 192/512 + maskable; iPhone: `apple-touch-icon.png`). Icon-Quelle ist ein SVG (Berge + „2027“), mit `qlmanage`/`sips` zu PNG gerendert.
 - Nächte werden aus `trip.from`/`trip.to` berechnet, Personen aus `trip.personen`.
+- Filter: Programm-Tab mit Leiste (bleibt beim Scrollen oben) für einen Bereich oder „Alle“ plus „nur mit Hund ✓“; Auswahl wird pro Gerät gemerkt (localStorage). Karte mit Ein/Aus-Chips für Unterkünfte, jede Programm-Kategorie und Orte; „Auf Karte zeigen“ schaltet die passende Ebene automatisch ein.
 - „Route zum Start“: iPhone/iPad → Apple Karten, sonst Google Maps. Ziel = Feld `nav` [lat,lng] eines Programmpunkts, sonst `lat`/`lng`; `"nav": null` blendet den Button aus (z. B. Hütten ohne Zufahrt).
 - Wetter-Karte im Programm-Tab: Klima 11.–18.09. aus dem Open-Meteo-Archiv 2016–2025 (Ø max 19,7 °C, Ø min 9,3 °C, an 48 % der Tage ≥ 1 mm Regen; in `trip.wetter.klima`). Ab 15 Tagen vor Reisebeginn lädt die Seite automatisch die Open-Meteo-Vorhersage (kein Key). Test: `?wetter` an die URL hängen → Vorhersage der nächsten 7 Tage.
 - Abstimmung vorerst per **WhatsApp-Umfrage**: Button kopiert die Optionen in die Zwischenablage.
@@ -94,6 +95,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Nutzung fast nur am Handy, kein Offline-Modus.
 - 30.10.2026: Wechsel von claude.ai/Cowork zu Claude Code für Umsetzung und Recherche.
 - 30.10.2026: Seite muss auf iPhone **und Android** funktionieren (nicht alle in der Gruppe haben ein iPhone) – Homescreen-Icon per Web-Manifest + apple-touch-icon.
+- 30.10.2026: Filter im Programm-Tab und auf der Karte gewünscht (weniger Scrollen); untere Tab-Leiste bleibt auf jeden Fall.
 - 30.10.2026: Ausbau gewählt: „Route zum Start“-Buttons und Wetter (Klima jetzt, Live-Vorhersage kurz vor der Reise). Kostenrechner, Packliste, weitere Recherche und Stufe 2 vorerst zurückgestellt.
 - 30.10.2026: Programm-Wünsche: Umkreis bis ca. 1 Std. Fahrt (inkl. Gosau, Filzmoos, Ramsau, Hallstatt); Gruppe = Klettersteig-Anfänger → geführter Einsteigertag; kein fester Tagesplan, Vorschlagsliste und Entscheidung vor Ort nach Wetter; Restaurants bodenständig, eher günstig, hundefreundlich; Darstellung als Tab „Programm“ mit Umfrage-Button pro Abschnitt.
 - 30.10.2026: Link + Umfrage in der WhatsApp-Gruppe (Kopier-Button funktioniert am iPhone). Vermieteranfragen erst nach Rückmeldung der Gruppe zur App; Programmrecherche (Touren, Klettersteige, Hütten, Restaurants) startet jetzt.

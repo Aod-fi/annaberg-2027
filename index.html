@@ -85,6 +85,10 @@ nav button.active{color:var(--accent);font-weight:600}
 .note a{color:var(--accent)}
 .jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
 .jump a{text-decoration:none;color:var(--ink)}
+button.chip{appearance:none;border:1px solid var(--line);font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;padding:5px 11px}
+button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.filterbar{position:sticky;top:0;z-index:900;background:var(--bg);padding:8px 0 6px;margin:0}
+.empty{display:none}
 .wx{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
 .wx td{padding:5px 0;border-bottom:1px solid var(--line)}
 .wx td:first-child{color:var(--ink);width:auto}
@@ -120,16 +124,17 @@ nav button.active{color:var(--accent);font-weight:600}
 
   <section id="tab-programm">
     <h2>Programm – Vorschläge</h2>
-    <p class="note" id="prog-stand"></p>
+    <div class="jump filterbar" id="prog-filter" role="toolbar" aria-label="Programm filtern"></div>
     <div class="card" id="wetter"></div>
-    <div class="jump" id="prog-jump"></div>
     <div class="card" id="prog-hinweise"></div>
     <div id="programm"></div>
+    <p class="note" id="prog-stand"></p>
   </section>
 
   <section id="tab-karte">
     <h2>Karte</h2>
     <p class="note">Lagen sind ungefähr – die genaue Adresse nennen die Vermieter meist erst bei Buchung.</p>
+    <div class="jump" id="map-filter" role="toolbar" aria-label="Karte filtern"></div>
     <div id="map"></div>
   </section>
 
@@ -603,12 +608,19 @@ function navLink(it){
 const P = DATA.programm;
 const srcLinks = q => q.map(([t, l]) => `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');
 $('#prog-stand').textContent = P.stand;
-$('#prog-jump').innerHTML = P.abschnitte.map(a => `<a class="chip" href="#programm" data-jump="${esc(a.id)}">${a.icon} ${esc(a.titel)}</a>`).join('');
+// Filter: ein Bereich (oder alle) + optional nur Einträge, bei denen der Hund sicher mit darf
+const kurzTitel = {wandern: 'Wandern', klettersteig: 'Klettersteig', huetten: 'Hütten', essen: 'Essen', regen: 'Regen'};
+let progFilter = {bereich: P.abschnitte[0].id, hund: false};
+try { Object.assign(progFilter, JSON.parse(localStorage.getItem('progFilter')) || {}); } catch (e) {}
+$('#prog-filter').innerHTML = [['alle', 'Alle']].concat(P.abschnitte.map(a => [a.id, a.icon + ' ' + (kurzTitel[a.id] || a.titel)]))
+  .map(([id, t]) => `<button class="chip" data-bereich="${esc(id)}">${esc(t)}</button>`).join('') +
+  '<button class="chip" data-hundfilter>🐕 nur mit Hund ✓</button>';
 $('#prog-hinweise').innerHTML = '<details style="margin:0;border:0;padding:0"><summary>Gut zu wissen: Hund, Bergbahnen, Herbst</summary>' + P.hinweise.map(([t, d, l]) =>
   `<p class="note" style="margin:8px 0"><b>${esc(t)}:</b> ${esc(d)} <a href="${esc(l)}" target="_blank" rel="noopener">Quelle</a></p>`).join('') + '</details>';
 $('#programm').innerHTML = P.abschnitte.map(a => `<div id="abschnitt-${esc(a.id)}">
   <h2>${a.icon} ${esc(a.titel)}</h2>
   ${a.hinweis ? `<p class="note">${esc(a.hinweis)}</p>` : ''}
+  <p class="note empty">Hier ist nichts sicher mit Hund – Filter „nur mit Hund“ ausschalten.</p>
   ${a.items.map(it => `<article class="card" id="p-${esc(it.id)}">
     <h3>${esc(it.name)}</h3>
     <div class="where">${esc(it.ort)} · ${esc(it.anfahrt)}</div>
@@ -621,9 +633,21 @@ $('#programm').innerHTML = P.abschnitte.map(a => `<div id="abschnitt-${esc(a.id)
   </article>`).join('')}
   <div class="actions"><button class="btn primary" data-poll="${esc(a.id)}">Umfrage-Optionen kopieren</button></div>
 </div>`).join('');
-document.querySelectorAll('[data-jump]').forEach(c => c.addEventListener('click', e => {
-  e.preventDefault(); document.getElementById('abschnitt-' + c.dataset.jump).scrollIntoView({behavior: 'smooth'});
-}));
+function applyProgFilter(){
+  document.querySelectorAll('[data-bereich]').forEach(b => b.setAttribute('aria-pressed', b.dataset.bereich === progFilter.bereich));
+  $('[data-hundfilter]').setAttribute('aria-pressed', progFilter.hund);
+  P.abschnitte.forEach(a => {
+    const box = document.getElementById('abschnitt-' + a.id);
+    box.style.display = progFilter.bereich === 'alle' || progFilter.bereich === a.id ? '' : 'none';
+    let n = 0;
+    a.items.forEach(it => { const ok = !progFilter.hund || it.hund[0] === 'ok'; document.getElementById('p-' + it.id).style.display = ok ? '' : 'none'; if (ok) n++; });
+    box.querySelector('.empty').style.display = n ? 'none' : 'block';
+  });
+  try { localStorage.setItem('progFilter', JSON.stringify(progFilter)); } catch (e) {}
+}
+document.querySelectorAll('[data-bereich]').forEach(b => b.addEventListener('click', () => { progFilter.bereich = b.dataset.bereich; applyProgFilter(); }));
+$('[data-hundfilter]').addEventListener('click', () => { progFilter.hund = !progFilter.hund; applyProgFilter(); });
+applyProgFilter();
 
 // Wetter: Klima aus dem Archiv; ab 16 Tagen vor Reisebeginn Live-Vorhersage (Open-Meteo, ohne Schlüssel)
 const W = DATA.trip.wetter;
@@ -646,7 +670,8 @@ function renderWetter(){
   const head = daysTo > 0 ? `<h3>Wetter · noch ${daysTo} Tage</h3>` : '<h3>Wetter</h3>';
   if (!live) {
     const ab = new Date(start); ab.setDate(ab.getDate() - 15);
-    $('#wetter').innerHTML = head + klima + `<p class="note">Die echte Vorhersage erscheint hier automatisch ab ${ab.toLocaleDateString('de-DE')}.</p>` + quelle;
+    $('#wetter').innerHTML = `<details style="margin:0;border:0;padding:0"><summary>🌤️ Wetter: meist ${Math.round(k.minSchnitt)}–${Math.round(k.maxSchnitt)} °C, Regen an ${k.regentageProzent} % der Tage · noch ${daysTo} Tage</summary>` +
+      klima + `<p class="note">Die echte Vorhersage erscheint hier automatisch ab ${ab.toLocaleDateString('de-DE')}.</p>` + quelle + '</details>';
     return;
   }
   // Zeitraum: Reisetage, soweit vorhersagbar (max. 16 Tage); im Testmodus die nächsten 7 Tage
@@ -708,28 +733,47 @@ function initMap(){
     maxZoom: 18, attribution: '© OpenStreetMap-Mitwirkende'
   }).addTo(map);
   const bounds = [];
+  const unterkunftLayer = L.layerGroup();
   DATA.unterkuenfte.forEach((u, i) => {
-    if (u.lageUngefaehr) L.circle([u.lat, u.lng], {radius: 350, color: '#2f5d50', weight: 1, fillOpacity: .15, interactive: false}).addTo(map);
+    if (u.lageUngefaehr) L.circle([u.lat, u.lng], {radius: 350, color: '#2f5d50', weight: 1, fillOpacity: .15, interactive: false}).addTo(unterkunftLayer);
     const pin = L.divIcon({className: 'num-pin', html: String(i + 1), iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -12]});
     const m = L.marker([u.lat, u.lng], {icon: pin, title: 'Option ' + (i + 1)});
-    m.addTo(map).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
-    markers[u.id] = m; bounds.push([u.lat, u.lng]);
+    m.addTo(unterkunftLayer).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
+    markers[u.id] = m; markerLayer[u.id] = 'unterkunft'; bounds.push([u.lat, u.lng]);
   });
-  const progLayer = L.layerGroup();
-  P.abschnitte.forEach(a => a.items.forEach(it => {
-    const pin = L.divIcon({className: 'prog-pin', html: a.icon, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12]});
-    const m = L.marker([it.lat, it.lng], {icon: pin, title: it.name}).addTo(progLayer)
-      .bindPopup(`<b>${esc(it.name)}</b><br>${esc(a.titel)} · ${esc(it.pin)}`);
-    markers[it.id] = m;
-  }));
-  progLayer.addTo(map);
-  L.control.layers(null, {'Programm': progLayer}, {collapsed: false}).addTo(map);
-  DATA.orte.forEach(o => L.circleMarker([o.lat, o.lng], {radius: 6, color: '#5f6b66', fillOpacity: .8}).addTo(map).bindPopup(esc(o.name)));
+  mapLayers.unterkunft = {titel: '🏠 Unterkünfte', layer: unterkunftLayer};
+  P.abschnitte.forEach(a => {
+    const layer = L.layerGroup();
+    a.items.forEach(it => {
+      const pin = L.divIcon({className: 'prog-pin', html: a.icon, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12]});
+      markers[it.id] = L.marker([it.lat, it.lng], {icon: pin, title: it.name}).addTo(layer)
+        .bindPopup(`<b>${esc(it.name)}</b><br>${esc(a.titel)} · ${esc(it.pin)}`);
+      markerLayer[it.id] = a.id;
+    });
+    mapLayers[a.id] = {titel: a.icon + ' ' + (kurzTitel[a.id] || a.titel), layer};
+  });
+  const orteLayer = L.layerGroup();
+  DATA.orte.forEach(o => L.circleMarker([o.lat, o.lng], {radius: 6, color: '#5f6b66', fillOpacity: .8}).addTo(orteLayer).bindPopup(esc(o.name)));
+  mapLayers.orte = {titel: '📍 Orte', layer: orteLayer};
+  $('#map-filter').innerHTML = Object.entries(mapLayers).map(([id, l]) => `<button class="chip" data-layer="${esc(id)}">${esc(l.titel)}</button>`).join('');
+  document.querySelectorAll('[data-layer]').forEach(b => b.addEventListener('click', () => setLayer(b.dataset.layer, !map.hasLayer(mapLayers[b.dataset.layer].layer))));
+  Object.keys(mapLayers).forEach(id => setLayer(id, true));
   map.fitBounds(bounds, {padding: [40, 40]});
+}
+let mapLayers = {}, markerLayer = {};
+function setLayer(id, on){
+  const l = mapLayers[id].layer;
+  if (on) map.addLayer(l); else map.removeLayer(l);
+  document.querySelector(`[data-layer="${id}"]`).setAttribute('aria-pressed', on);
 }
 document.querySelectorAll('[data-map]').forEach(b => b.addEventListener('click', () => {
   go('karte');
-  setTimeout(() => { const m = markers[b.dataset.map]; if (m) { map.setView(m.getLatLng(), 13); m.openPopup(); } }, 120);
+  setTimeout(() => {
+    const id = b.dataset.map, m = markers[id];
+    if (!m) return;
+    setLayer(markerLayer[id], true);
+    map.setView(m.getLatLng(), 13); m.openPopup();
+  }, 120);
 }));
 show(tabFromHash());
 </script>
