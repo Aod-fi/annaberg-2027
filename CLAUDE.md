@@ -49,7 +49,9 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ### Stufe 1 (jetzt): statische Anzeigeseite
 - `index.html` – eine einzige, eigenständige Datei, mobil optimiert (Homescreen-App), hell/dunkel.
 - Inhalte stehen im JSON-Block `<script type="application/json" id="trip-data">` – **Inhalte dort ändern, nicht im Code**.
-- Tabs: Unterkunft (Karten mit Muss-Check ✓/?/✗, Pluspunkte, Nachteile, Vermieterfragen), Karte (Leaflet 1.9.4 von cdnjs + OpenStreetMap, ungenaue Lagen als Kreis), Rahmen, Demnächst.
+- Tabs: Unterkunft (Karten mit Muss-Check ✓/?/✗, Pluspunkte, Nachteile, Vermieterfragen), Karte (Leaflet 1.9.4 von cdnjs mit SRI-Prüfsummen + OpenStreetMap, Unterkünfte als nummerierte Pins, ungenaue Lagen zusätzlich mit Kreis, Orientierungspunkte aus `orte`), Rahmen, Demnächst. Aktiver Tab steht in der Adresse (`#karte` usw.), Zurück-Taste wechselt Tabs.
+- Homescreen: `manifest.webmanifest` + `icons/` (Android: 192/512 + maskable; iPhone: `apple-touch-icon.png`). Icon-Quelle ist ein SVG (Berge + „2027“), mit `qlmanage`/`sips` zu PNG gerendert.
+- Nächte werden aus `trip.from`/`trip.to` berechnet, Personen aus `trip.personen`.
 - Abstimmung vorerst per **WhatsApp-Umfrage**: Button kopiert die Optionen in die Zwischenablage.
 - Hosting: **GitHub Pages**, Repo-Vorschlag `annaberg-2027`, öffentlich (Pages im Free-Tarif nur für öffentliche Repos).
 
@@ -85,4 +87,5 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Variante 1 (schrittweise) – erst statische Seite + WhatsApp-Umfrage, Supabase später.
 - 30.10.2026: Nutzung fast nur am Handy, kein Offline-Modus.
 - 30.10.2026: Wechsel von claude.ai/Cowork zu Claude Code für Umsetzung und Recherche.
+- 30.10.2026: Seite muss auf iPhone **und Android** funktionieren (nicht alle in der Gruppe haben ein iPhone) – Homescreen-Icon per Web-Manifest + apple-touch-icon.
 - 30.10.2026: Öffentliches Repo `Aod-fi/annaberg-2027` mit GitHub Pages (main / Root); `CLAUDE.md` und `MASTERPROMPT.md` sind mit im Repo. Commits mit GitHub-Noreply-Adresse (lokale git-Config), damit keine private Mailadresse öffentlich wird.

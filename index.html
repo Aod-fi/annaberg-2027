@@ -4,10 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Annaberg 2027</title>
-<meta name="theme-color" content="#2f5d50">
+<meta name="theme-color" content="#2f5d50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d2522" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Annaberg 2027">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+  integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <style>
 :root{
   --bg:#f4f1ea; --card:#fffdf8; --ink:#1f2a26; --muted:#5f6b66; --line:#ddd6c8;
@@ -69,6 +75,8 @@ nav button.active{color:var(--accent);font-weight:600}
   padding:8px 14px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2000}
 .toast.show{opacity:1}
 .soon .card{opacity:.75}
+.num-pin{background:var(--accent);color:var(--accent-ink);border:2px solid #fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -131,7 +139,7 @@ nav button.active{color:var(--accent);font-weight:600}
 {
   "trip": {
     "title": "Annaberg 2027",
-    "from": "2027-09-11", "to": "2027-09-18",
+    "from": "2027-09-11", "to": "2027-09-18", "personen": 4,
     "facts": ["Sa 11.–Sa 18.09.2027", "7 Nächte", "4 Personen + Golden Retriever", "2 Autos", "Budget 1.000–2.000 €"],
     "stand": "Stand 30.10.2026 · Preise sind „ab“-Preise der Portale, der echte Wochenpreis für September kommt erst mit der Anfrage."
   },
@@ -270,13 +278,15 @@ nav button.active{color:var(--accent);font-weight:600}
 }
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+  integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 const DATA = JSON.parse(document.getElementById('trip-data').textContent);
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const eur = n => n.toLocaleString('de-DE', {maximumFractionDigits:0}) + ' €';
-const nights = 7, persons = 4;
+const nights = Math.round((new Date(DATA.trip.to) - new Date(DATA.trip.from)) / 864e5);
+const persons = DATA.trip.personen;
 
 $('#facts').innerHTML = DATA.trip.facts.map(f => `<span class="chip">${esc(f)}</span>`).join('');
 $('#stand').textContent = DATA.trip.stand;
@@ -324,26 +334,35 @@ $('#copyPoll').addEventListener('click', async () => {
 
 // Tabs
 let map, markers = {};
+// Tab steht in der Adresse (#karte), damit Neuladen, Zurück-Taste und Direktlinks funktionieren
+const TABS = ['unterkunft', 'karte', 'rahmen', 'bald'];
 function show(tab){
+  if (!TABS.includes(tab)) tab = 'unterkunft';
   document.querySelectorAll('section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   window.scrollTo(0, 0);
   if (tab === 'karte') initMap();
 }
-document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
+const tabFromHash = () => location.hash.slice(1);
+function go(tab){
+  if (tabFromHash() !== tab) { try { location.hash = tab; } catch (e) {} }
+  if (tabFromHash() !== tab || !document.querySelector('#tab-' + tab + '.active')) show(tab);
+}
+window.addEventListener('hashchange', () => show(tabFromHash()));
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => go(b.dataset.tab)));
 
 function initMap(){
   if (typeof L === 'undefined') { $('#map').innerHTML = '<p class="note" style="padding:16px">Karte konnte nicht geladen werden.</p>'; return; }
   if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
   map = L.map('map', {scrollWheelZoom:false}).setView([47.53, 13.44], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18, attribution: '© OpenStreetMap-Mitwirkende'
   }).addTo(map);
   const bounds = [];
   DATA.unterkuenfte.forEach((u, i) => {
-    const m = u.lageUngefaehr
-      ? L.circle([u.lat, u.lng], {radius: 350, color: '#2f5d50', fillOpacity: .25})
-      : L.marker([u.lat, u.lng]);
+    if (u.lageUngefaehr) L.circle([u.lat, u.lng], {radius: 350, color: '#2f5d50', weight: 1, fillOpacity: .15, interactive: false}).addTo(map);
+    const pin = L.divIcon({className: 'num-pin', html: String(i + 1), iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -12]});
+    const m = L.marker([u.lat, u.lng], {icon: pin, title: 'Option ' + (i + 1)});
     m.addTo(map).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
     markers[u.id] = m; bounds.push([u.lat, u.lng]);
   });
@@ -351,9 +370,10 @@ function initMap(){
   map.fitBounds(bounds, {padding: [40, 40]});
 }
 document.querySelectorAll('[data-map]').forEach(b => b.addEventListener('click', () => {
-  show('karte');
+  go('karte');
   setTimeout(() => { const m = markers[b.dataset.map]; if (m) { map.setView(m.getLatLng(), 14); m.openPopup(); } }, 120);
 }));
+show(tabFromHash());
 </script>
 </body>
 </html>
