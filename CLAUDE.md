@@ -28,12 +28,16 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 
 **Pluspunkte** (keine Ausschlusskriterien): 3–4 Schlafzimmer, mehr Bäder, Terrasse/Balkon mit Bergblick, eingezäunter Garten, Sauna, Waschmaschine/Trockenraum, WLAN, Gästekarte, Supermarkt in der Nähe.
 
-## Programm (noch zu planen)
+## Programm
 - Wanderungen mittel bis sportlich (4–6+ Std., 500–900+ Hm), mit Hund, Einkehr mittags oder zum Abschluss
 - Klettersteige A–C, **ohne Hund**, Ausrüstung wird geliehen, optional geführter Einsteigertag
 - Verpflegung: eher selbst kochen oder halb/halb; Restaurantauswahl für einige Abende
 - Schlechtwetter-Alternativen
 - Hinweise: Hüttenöffnungszeiten Mitte September prüfen; Hund: Maulkorb-/Leinenpflicht in Bergbahnen/ÖPNV, Vorsicht bei Mutterkühen
+- **Vorschläge stehen seit 30.10.2026 im Tab „Programm“** (JSON `programm.abschnitte`: wandern, klettersteig, huetten, essen, regen; jeder Eintrag mit Eckdaten, Hund ✓/?/✗, Saison, Quellen, Kartenpin). Umfrage-Button pro Abschnitt.
+- Klettersteig-Plan (Gruppe = Anfänger): Kurs „Gipfelstürmer“ in Ramsau (2026: Mo 16–18:30 Uhr, 63 €, Leihausrüstung, ab 4 Pers.) → passt auf Mo 13.09.2027; danach Kali/Kala (Ramsau), Max & Moritz (Gosau), Abschluss Laserer alpin (B–B/C, einzelne C). Donnerkogel (C/D) zu schwer.
+- Achtung: Donnerkogelbahn Annaberg fuhr 2026 nur bis 13.09. (Mo/Mi/Do/So) + 20./27.09.; Gosaukammbahn täglich bis 1.11. Hofpürglhütte ab 28.09. zu.
+- Offen beim Programm: Hunderegeln vieler Hütten/Restaurants, Termine 2027 (Kurs, Bahnen, Hütten) vor der Reise prüfen.
 
 ## Unterkunfts-Vorauswahl (Recherche 30.10.2026, „ab“-Preise der Portale)
 1. **Bauernhaus über Promberg** – 120 m², 4 SZ (davon 1 Zweibettzimmer), 2 Bäder, eingezäunter Garten, Baumhaussauna, Kachelofen, Alleinlage, Hunde willkommen, ab 107 €/Nacht, 9,8/10 (12). Gefunden über die Hunde-Übersicht https://www.ferienwohnungen.de/urlaub-mit-hund/europa/oesterreich/annaberg-lungoetz/ (Direktlink fehlt noch). Offen: 2 Parkplätze? Hund allein?
@@ -78,7 +82,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
 3. Anfragen an die Favoriten (Wochenpreis, Parkplätze, Hund allein) → Ergebnisse im JSON-Block nachtragen.
-4. Touren, Klettersteige, Hütten, Restaurants recherchieren.
+4. ✓ Erste Recherche 30.10.2026 (Tab „Programm“). Nächster Schritt: Umfragen in der Gruppe, dann Favoriten genauer prüfen.
 5. Stufe 2 mit Supabase konzipieren (erst Fragen, dann Spezifikation zur Freigabe, dann bauen).
 
 ## Entscheidungslog
@@ -88,5 +92,6 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Nutzung fast nur am Handy, kein Offline-Modus.
 - 30.10.2026: Wechsel von claude.ai/Cowork zu Claude Code für Umsetzung und Recherche.
 - 30.10.2026: Seite muss auf iPhone **und Android** funktionieren (nicht alle in der Gruppe haben ein iPhone) – Homescreen-Icon per Web-Manifest + apple-touch-icon.
+- 30.10.2026: Programm-Wünsche: Umkreis bis ca. 1 Std. Fahrt (inkl. Gosau, Filzmoos, Ramsau, Hallstatt); Gruppe = Klettersteig-Anfänger → geführter Einsteigertag; kein fester Tagesplan, Vorschlagsliste und Entscheidung vor Ort nach Wetter; Restaurants bodenständig, eher günstig, hundefreundlich; Darstellung als Tab „Programm“ mit Umfrage-Button pro Abschnitt.
 - 30.10.2026: Link + Umfrage in der WhatsApp-Gruppe (Kopier-Button funktioniert am iPhone). Vermieteranfragen erst nach Rückmeldung der Gruppe zur App; Programmrecherche (Touren, Klettersteige, Hütten, Restaurants) startet jetzt.
 - 30.10.2026: Öffentliches Repo `Aod-fi/annaberg-2027` mit GitHub Pages (main / Root); `CLAUDE.md` und `MASTERPROMPT.md` sind mit im Repo. Commits mit GitHub-Noreply-Adresse (lokale git-Config), damit keine private Mailadresse öffentlich wird.

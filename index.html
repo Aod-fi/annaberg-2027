@@ -75,6 +75,16 @@ nav button.active{color:var(--accent);font-weight:600}
   padding:8px 14px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2000}
 .toast.show{opacity:1}
 .soon .card{opacity:.75}
+.prog-pin{background:var(--card);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.line{display:flex;gap:8px;font-size:14.5px;margin:4px 0}
+.line i{font-style:normal;width:18px;flex:none;text-align:center;font-weight:700}
+.src{font-size:13px;color:var(--muted);margin-top:8px}
+.src a{color:var(--muted)}
+.note a{color:var(--accent)}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.jump a{text-decoration:none;color:var(--ink)}
 .num-pin{background:var(--accent);color:var(--accent-ink);border:2px solid #fff;border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.35)}
 </style>
@@ -104,6 +114,14 @@ nav button.active{color:var(--accent);font-weight:600}
     <div class="card"><ul class="excluded" id="excluded"></ul></div>
   </section>
 
+  <section id="tab-programm">
+    <h2>Programm – Vorschläge</h2>
+    <p class="note" id="prog-stand"></p>
+    <div class="jump" id="prog-jump"></div>
+    <div class="card" id="prog-hinweise"></div>
+    <div id="programm"></div>
+  </section>
+
   <section id="tab-karte">
     <h2>Karte</h2>
     <p class="note">Lagen sind ungefähr – die genaue Adresse nennen die Vermieter meist erst bei Buchung.</p>
@@ -128,6 +146,7 @@ nav button.active{color:var(--accent);font-weight:600}
 
 <nav>
   <button data-tab="unterkunft" class="active"><span class="ico">🏠</span>Unterkunft</button>
+  <button data-tab="programm"><span class="ico">🥾</span>Programm</button>
   <button data-tab="karte"><span class="ico">🗺️</span>Karte</button>
   <button data-tab="rahmen"><span class="ico">📋</span>Rahmen</button>
   <button data-tab="bald"><span class="ico">⏳</span>Demnächst</button>
@@ -267,6 +286,243 @@ nav button.active{color:var(--accent);font-weight:600}
     ["Chalet Rosa Maria", "4 Schlafzimmer, Sauna, Bad + separates WC – keine Haustiere", "https://www.ferienhausmiete.de/413768.htm"],
     ["Chalet Almhaus 30", "günstig, 3 Schlafzimmer – keine Haustiere", "https://www.ferienhausmiete.de/20499.htm"]
   ],
+  "programm": {
+    "stand": "Recherche 30.10.2026 · Saisonzeiten und Preise sind meist Stand 2026 – vor der Reise für 2027 nochmal prüfen. Fahrzeiten ab Annaberg Ortsmitte, grob per OpenStreetMap-Routing.",
+    "hinweise": [
+      ["🐕 Weidevieh", "Hund auf Almen an der kurzen Leine, Mutterkühen mit Kälbern ausweichen. Droht ein Angriff: Hund sofort ableinen, damit er selbst ausweichen kann.", "https://www.oesterreich.gv.at/themen/reisen_und_freizeit/freizeit-in-der-natur/Sicheres-Verhalten-bei-Freizeitaktivit%C3%A4ten-Startseite/Wandern.html"],
+      ["🚡 Bergbahnen", "In den Seilbahnen der Region gilt für Hunde Maulkorb- und Leinenpflicht – Maulkorb einpacken.", "https://dachstein.salzkammergut.at/hundefreundliche-seilbahnen.html"],
+      ["📅 Donnerkogelbahn Annaberg", "2026 lief sie nur bis 13.09. (Mo, Mi, Do, So), danach nur noch an zwei Sonntagen. In unserer Woche fährt sie 2027 also evtl. nur am Anfang. Die Gosaukammbahn fuhr 2026 dagegen täglich bis 1.11.", "https://www.dachstein.at/de/sommer/bergbahnen/donnerkogelbahn"],
+      ["🍂 Herbst", "Manche Steige können im Herbst witterungsbedingt gesperrt sein – im Zweifel beim Tourismusbüro Annaberg nachfragen.", "https://www.wanderdoerfer.at/salzburg/wanderweg/salzalpentour-annaberg-stuhlalm-stuhlloch-loseggalmen-30-punkte/"]
+    ],
+    "abschnitte": [
+      {
+        "id": "wandern", "titel": "Wanderungen", "icon": "🥾",
+        "frage": "Welche Wanderungen wollt ihr machen?",
+        "items": [
+          {
+            "id": "w-koernerhuette", "name": "Annaberg – Stuhlalm – Theodor-Körner-Hütte",
+            "ort": "Start Ortsmitte Annaberg (oder kürzer ab Parkplatz Pommer)", "anfahrt": "direkt ab Ort",
+            "eckdaten": ["15,4 km", "ca. 5,7 Std.", "905 Hm"],
+            "kurz": "Von Hütte zu Hütte am Fuß des Gosaukamms. Rückweg gleich oder über den Austriaweg zur Zwieselalm (teils unmarkiert).",
+            "hund": ["ok", "Körnerhütte: Haustiere erlaubt"],
+            "saison": "Körnerhütte ca. Ende Mai–Anfang Okt., Stuhlalm Mai–Nov.",
+            "lat": 47.5071, "lng": 13.4817, "pin": "Stuhlalm",
+            "quellen": [["Wanderdörfer", "https://www.wanderdoerfer.at/salzburg/wanderweg/annaberg-stuhlalm-theodor-koerner-huette-16-punkte/"], ["Körnerhütte (Tourismus)", "https://dachstein.salzkammergut.at/en/oesterreich-gastronomie/detail/430000909/theodor-koerner-hut.html"]]
+          },
+          {
+            "id": "w-stuhlloch", "name": "Salzalpentour: Stuhlalm – Stuhlloch – Loseggalmen",
+            "ort": "Start Parkplatz Pommer (Astauwinkel)", "anfahrt": "ca. 11 Min.",
+            "eckdaten": ["13 km", "ca. 4,8 Std.", "762 Hm", "bis 1.654 m"],
+            "kurz": "Steil hinauf zur Stuhlalm, dann über Almen Richtung Bischofsmütze und in Serpentinen durchs Stuhlloch hinab, Aussichtspunkt Losegg.",
+            "hund": ["q", "Steile Serpentinen im Stuhlloch – trittsicherer Hund nötig, Hunderegeln nicht angegeben"],
+            "saison": "Einkehr Stuhlalm, Loseggalm, Mahdalm",
+            "lat": 47.5155, "lng": 13.4613, "pin": "Start Pommer",
+            "quellen": [["Wanderdörfer", "https://www.wanderdoerfer.at/salzburg/wanderweg/salzalpentour-annaberg-stuhlalm-stuhlloch-loseggalmen-30-punkte/"]]
+          },
+          {
+            "id": "w-gablonzer", "name": "Gosausee – Gablonzer Hütte – Zwieselalm",
+            "ort": "Start Parkplatz Vorderer Gosausee", "anfahrt": "ca. 30 Min.",
+            "eckdaten": ["ca. 2 Std. hinauf", "ca. 600–750 Hm", "oder per Gosaukammbahn"],
+            "kurz": "Aufstieg vom Gosausee zur Zwieselalm mit Dachsteinblick. Abkürzung mit der Gosaukammbahn, oben Rundwege um die Zwieselalm (ca. 2,5 Std., 300 Hm).",
+            "hund": ["q", "In der Bahn Maulkorb + Leine; Weidevieh auf der Zwieselalm"],
+            "saison": "Gablonzer Hütte Sommer ca. Mitte Mai–Ende Okt.; Gosaukammbahn 2026 täglich bis 1.11.",
+            "lat": 47.5331, "lng": 13.4797, "pin": "Gablonzer Hütte",
+            "quellen": [["Gablonzer Hütte (Bergwelten)", "https://www.bergwelten.com/h/gablonzer-huette"], ["Gosaukammbahn", "https://www.dachstein.at/de/sommer/bergbahnen/gosaukammbahn"]]
+          },
+          {
+            "id": "w-gosausee", "name": "Gosauseen: Vorderer – Hinterer Gosausee – Holzmeisteralm",
+            "ort": "Start Parkplatz Vorderer Gosausee", "anfahrt": "ca. 30 Min.",
+            "eckdaten": ["5,6 km", "ca. 1,5 Std.", "200 Hm", "mit Seeumrundung länger"],
+            "kurz": "Am Ufer mit Dachstein-Gletscherblick, an der Gosaulacke vorbei zum Hinteren Gosausee und zur Hohen Holzmeisteralm. Gut für einen ruhigeren Tag oder als Kombi mit dem Laserer-Klettersteig.",
+            "hund": ["ok", "Haustiere laut Tourenbeschreibung willkommen"],
+            "saison": "Weg Mai–Okt. begehbar; Wildschutzzone zwischen den Seen nicht betreten",
+            "lat": 47.4998, "lng": 13.5524, "pin": "Hohe Holzmeisteralm",
+            "quellen": [["Weg zum Hinteren Gosausee", "https://dachstein.salzkammergut.at/oesterreich-tour/detail/430001495/weg-zum-hinteren-gosausee.html"]]
+          },
+          {
+            "id": "w-bischofsmuetze", "name": "Filzmoos: Hofalmen – Hofpürglhütte an der Bischofsmütze",
+            "ort": "Start Oberhofalm bzw. Aualm (Hofalmstraße)", "anfahrt": "ca. 50 Min.",
+            "eckdaten": ["Runde ca. 3,5–4,5 Std.", "ca. 600 Hm", "11–12 km"],
+            "kurz": "Rundtour unter der Bischofsmütze: Hofalmen – Hofpürglhütte (1.705 m) – Sulzkaralm – zurück. Die Angaben der Quellen schwanken etwas.",
+            "hund": ["q", "Keine Hundeinfo gefunden – bei der Hütte fragen"],
+            "saison": "Hofpürglhütte ca. Ende Mai bis 27.09. (ab 28.09. zu)",
+            "lat": 47.4772, "lng": 13.5321, "pin": "Start Oberhofalm",
+            "quellen": [["Hofalm-Runde (tourispo)", "https://tourispo.de/wanderung/filzmoos-von-den-hofalmen-ueber-kaserboden-und-rinderfeld-zur-hofpuerglhuette.html"], ["Hofpürglhütte (Tourismus)", "https://dachstein.salzkammergut.at/oesterreich-gastronomie/detail/101032/hofpuerglhuette.html"]]
+          },
+          {
+            "id": "w-laufener", "name": "Tennengebirge: Karalm – Laufener Hütte",
+            "ort": "Start Parkplatz vor der Karalm (Abtenau)", "anfahrt": "ca. 20 Min.",
+            "eckdaten": ["ca. 2,5 Std. hinauf", "790 Hm", "hin + zurück ca. 4,5 Std."],
+            "kurz": "Mittelschwere Bergtour über Wandalm zur Laufener Hütte (1.726 m) im Tennengebirge, ein paar gesicherte Passagen.",
+            "hund": ["q", "Gesicherte Passagen – vorher prüfen, ob für den Hund machbar"],
+            "saison": "Hütte ca. Pfingsten–Anfang Okt. bewartet (Getränke, Suppe)",
+            "lat": 47.5447, "lng": 13.3548, "pin": "Start Karalm",
+            "quellen": [["Laufener Hütte (Bergwelten)", "https://www.bergwelten.com/h/laufener-huette"], ["Outdoor-Magazin", "https://www.outdoor-magazin.com/wanderwege/tennengebirge-laufener-huette/"]]
+          },
+          {
+            "id": "w-edtalm", "name": "Annaberg: Teufelsgraben – Edtalm – Rottenhofhütte",
+            "ort": "Start Parkplatz Korreit", "anfahrt": "ca. 5 Min.",
+            "eckdaten": ["4,7 km hinauf", "ca. 1,6 Std. hinauf", "370 Hm", "Verlängerung Hornspitz"],
+            "kurz": "Kürzere Runde für den Anreise- oder Ruhetag: steil durch den Teufelsgraben zur Edtalm, zurück über die Rottenhofhütte.",
+            "hund": ["q", "Keine Hundeinfo gefunden"],
+            "saison": "Einkehr Edtalm und Rottenhofhütte",
+            "lat": 47.5491, "lng": 13.4779, "pin": "Edtalm",
+            "quellen": [["Wanderdörfer", "https://www.wanderdoerfer.at/salzburg/wanderweg/von-annaberg-auf-die-edtalm-20-punkte/"]]
+          }
+        ]
+      },
+      {
+        "id": "klettersteig", "titel": "Klettersteige (ohne Hund)", "icon": "🧗",
+        "frage": "Welche Klettersteig-Angebote interessieren euch?",
+        "hinweis": "Plan für Anfänger: zuerst geführter Kurs, dann leichte Steige, Laserer als Abschluss. Der Donnerkogel-Klettersteig bei Annaberg (C/D) ist für Einsteiger zu schwer.",
+        "items": [
+          {
+            "id": "k-kurs", "name": "Geführter Einsteigerkurs „Gipfelstürmer“, Ramsau",
+            "ort": "Treffpunkt Parkplatz „Alte Mühle“, Ramsau am Dachstein", "anfahrt": "ca. 60 Min.",
+            "eckdaten": ["Mo 16:00–18:30", "63 € p. P.", "Leihausrüstung inkl.", "ab 4 Personen"],
+            "kurz": "Klettersteigschein mit staatlich geprüften Bergführern: Technik, Ausrüstung, Bewertung. Termin passt auf Mo 13.09.2027. Anmeldung online bis Mo 12 Uhr, bei Schlechtwetter Geld zurück.",
+            "hund": ["no", "Ohne Hund – er bleibt im Quartier"],
+            "saison": "2026: jeden Montag 18.05.–12.10. – Termine 2027 prüfen",
+            "lat": 47.4276, "lng": 13.7046, "pin": "Treffpunkt Ramsau",
+            "quellen": [["Ausschreibung (Steiermark Tourismus)", "https://www.steiermark.com/de/Schladming-Dachstein/Urlaub-planen/Veranstaltungen/Klettersteigschein-Gipfelstuermer_ed_76126229"]]
+          },
+          {
+            "id": "k-kali", "name": "Kali (A/B) und Kala (B), Sattelberg Ramsau",
+            "ort": "Ramsau am Dachstein, Sattelberg", "anfahrt": "ca. 60 Min.",
+            "eckdaten": ["A/B und B", "kurz"],
+            "kurz": "Leichte Übungssteige direkt neben dem Kursort – z. B. vor dem Kurs am Montag zum Reinschnuppern.",
+            "hund": ["no", "Ohne Hund"],
+            "saison": "Sommersaison",
+            "lat": 47.4223, "lng": 13.7066, "pin": "Sattelberg",
+            "quellen": [["Klettersteige Schladming-Dachstein", "https://www.schladming-dachstein.at/de/Sommer/Klettern/Klettersteige"]]
+          },
+          {
+            "id": "k-maxmoritz", "name": "Max & Moritz, Gosau-Hintertal",
+            "ort": "Start Parkplatz Gosauschmied", "anfahrt": "ca. 27 Min.",
+            "eckdaten": ["leicht (A–C)", "300 m", "ca. 1 Std. + 15 Min. Zustieg"],
+            "kurz": "Eigentlich ein Kinder- und Jugendsteig, für erwachsene Einsteiger gut zum Üben nach dem Kurs.",
+            "hund": ["no", "Ohne Hund"],
+            "saison": "Sommersaison",
+            "lat": 47.5506, "lng": 13.5162, "pin": "Start Gosauschmied",
+            "quellen": [["hallstatt.net", "https://www.hallstatt.net/ueber-hallstatt/aktiv-urlaub-im-salzkammergut/klettern-adrenalin-pur/klettersteige/kinder-und-jugend-klettersteig-max-and-moritz/"]]
+          },
+          {
+            "id": "k-laserer", "name": "Laserer alpin, Vorderer Gosausee",
+            "ort": "Start Gosausee-Ostuferweg", "anfahrt": "ca. 30 Min.",
+            "eckdaten": ["B–B/C, einzelne C-Stellen", "ca. 1,5 Std. gesamt"],
+            "kurz": "Runde über dem Gosausee mit Seilleiter und Seilbrücke, Blick auf den Dachstein. Laut Betreiber nur bedingt für Anfänger – daher als Abschluss. Der Hund kann mit jemandem die Seerunde gehen.",
+            "hund": ["no", "Ohne Hund"],
+            "saison": "Sommersaison",
+            "lat": 47.5277, "lng": 13.5081, "pin": "Vorderer Gosausee",
+            "quellen": [["hallstatt.net", "https://hallstatt.net/ueber-hallstatt/aktiv-urlaub-im-salzkammergut/klettern-adrenalin-pur/klettersteige/laserer-alpin-klettersteig-am-gosausee/"]]
+          }
+        ]
+      },
+      {
+        "id": "huetten", "titel": "Hütten zum Einkehren", "icon": "🛖",
+        "frage": "Auf welche Hütte habt ihr Lust?",
+        "items": [
+          {
+            "id": "h-koerner", "name": "Theodor-Körner-Hütte (1.456 m)", "ort": "Gosaukamm, oberhalb Annaberg", "anfahrt": "Wanderung",
+            "eckdaten": ["ca. 1,5 Std. ab Annaberg-Seite"], "kurz": "Alpenvereinshütte direkt neben der Stuhlalm.",
+            "hund": ["ok", "Haustiere erlaubt"], "saison": "ca. Ende Mai–Anfang Okt.",
+            "lat": 47.5055, "lng": 13.4783, "pin": "Körnerhütte",
+            "quellen": [["Tourismus Dachstein Salzkammergut", "https://dachstein.salzkammergut.at/en/oesterreich-gastronomie/detail/430000909/theodor-koerner-hut.html"]]
+          },
+          {
+            "id": "h-stuhlalm", "name": "Stuhlalm (1.467 m)", "ort": "Sonnenseite des Gosaukamms", "anfahrt": "Wanderung",
+            "eckdaten": ["ab Parkplatz Pommer"], "kurz": "Klassische Alm mit Blick auf die Bischofsmütze, Ausgangspunkt für mehrere Touren.",
+            "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Mai–Nov.",
+            "lat": 47.5071, "lng": 13.4817, "pin": "Stuhlalm",
+            "quellen": [["Almen & Hütten (TVB Annaberg)", "https://www.annaberg-lungoetz.com/de/sommer/wandern/almen-huetten-dachstein-west-oesterreichische-wanderdoerfer.html"]]
+          },
+          {
+            "id": "h-gablonzer", "name": "Gablonzer Hütte (1.550 m)", "ort": "Zwieselalm, Gosau", "anfahrt": "Bahn oder Wanderung",
+            "eckdaten": ["10 Min. ab Bergstation Gosaukammbahn"], "kurz": "Große Hütte auf der Zwieselalm unter dem Donnerkogel – auch mit Bahn erreichbar.",
+            "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Sommer ca. Mitte Mai–Ende Okt.",
+            "lat": 47.5331, "lng": 13.4797, "pin": "Gablonzer Hütte",
+            "quellen": [["Bergwelten", "https://www.bergwelten.com/h/gablonzer-huette"]]
+          },
+          {
+            "id": "h-hofpuergl", "name": "Hofpürglhütte (1.705 m)", "ort": "Filzmoos, an der Bischofsmütze", "anfahrt": "ca. 50 Min. + 50 Min. Fußweg",
+            "eckdaten": ["ab Parkplatz Aualm ca. 50 Min."], "kurz": "Alpenvereinshütte direkt unter der Bischofsmütze.",
+            "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "bis ca. 27.09.",
+            "lat": 47.4822, "lng": 13.519, "pin": "Hofpürglhütte",
+            "quellen": [["Tourismus Dachstein Salzkammergut", "https://dachstein.salzkammergut.at/oesterreich-gastronomie/detail/101032/hofpuerglhuette.html"]]
+          },
+          {
+            "id": "h-rottenhof", "name": "Rottenhofhütte (1.378 m)", "ort": "Annaberg, nahe Donnerkogelbahn", "anfahrt": "Wanderung",
+            "eckdaten": ["an der Edtalm-Runde"], "kurz": "Gute Einkehr auf dem Rückweg vom Parkplatz Korreit aus.",
+            "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Öffnungszeiten nicht gefunden",
+            "lat": 47.5361, "lng": 13.4636, "pin": "Rottenhofhütte",
+            "quellen": [["Almen & Hütten (TVB Annaberg)", "https://www.annaberg-lungoetz.com/de/sommer/wandern/almen-huetten-dachstein-west-oesterreichische-wanderdoerfer.html"]]
+          }
+        ]
+      },
+      {
+        "id": "essen", "titel": "Restaurants", "icon": "🍽️",
+        "frage": "Wo wollen wir essen gehen?",
+        "hinweis": "Bodenständig, eher günstig, Hund willkommen. Hundefreundlichkeit ist nur bei zwei Häusern belegt – bei den anderen beim Reservieren fragen.",
+        "items": [
+          {
+            "id": "r-winterstell", "name": "Gasthof Winterstellgut", "ort": "Annaberg, Braunötzhof", "anfahrt": "ca. 14 Min.",
+            "eckdaten": ["regionale Küche", "Mi–So"], "kurz": "Regionale Produkte, kreativ gekocht. Preisniveau nicht gefunden – vorher Karte anschauen.",
+            "hund": ["ok", "Hunde erlaubt"], "saison": "Mo/Di vermutlich Ruhetag",
+            "lat": 47.536, "lng": 13.4393, "pin": "Winterstellgut",
+            "quellen": [["TVB Annaberg", "https://www.annaberg-lungoetz.com/en/gastronomy/winterstellgut-restaurant.html"], ["Schlemmer-Atlas", "https://www.schlemmer-atlas.de/restaurants/oesterreich/annaberg-lungoetz/gasthof-winterstellgut/"]]
+          },
+          {
+            "id": "r-alpenhof", "name": "Gasthof Alpenhof", "ort": "Annaberg, an der Hauptstraße", "anfahrt": "im Ort",
+            "eckdaten": ["Gasthof", "4,8/5 (313 Bewertungen)"], "kurz": "Klassischer Gasthof mitten in Annaberg.",
+            "hund": ["q", "Beim Reservieren fragen"], "saison": "Ruhetag nicht gefunden",
+            "lat": 47.5183, "lng": 13.4315, "pin": "Alpenhof",
+            "quellen": [["outdooractive", "https://www.outdooractive.com/en/gastro/tennengau/gasthof-alpenhof-annaberg/4236230/"]]
+          },
+          {
+            "id": "r-schichlreit", "name": "Gasthaus Schichlreit", "ort": "Lungötz, Neubach", "anfahrt": "ca. 16 Min.",
+            "eckdaten": ["traditionell-modern", "Do–So 11–23 Uhr", "Gastgarten"], "kurz": "Regionale Produkte, Gastgarten.",
+            "hund": ["q", "Beim Reservieren fragen"], "saison": "Mo–Mi geschlossen",
+            "lat": 47.4881, "lng": 13.4472, "pin": "Schichlreit",
+            "quellen": [["schichlreit.at", "https://www.schichlreit.at/"]]
+          },
+          {
+            "id": "r-gosauerhof", "name": "Hotel-Restaurant Gosauerhof", "ort": "Gosau", "anfahrt": "ca. 23 Min.",
+            "eckdaten": ["österreichische Küche", "Gastgarten"], "kurz": "Spezialität: hausgemachte Salzburger Nockerl. Passt nach einem Gosausee-Tag.",
+            "hund": ["ok", "Haustiere willkommen"], "saison": "Ruhetag nicht gefunden",
+            "lat": 47.5751, "lng": 13.5274, "pin": "Gosauerhof",
+            "quellen": [["Tourismus Dachstein Salzkammergut", "https://dachstein.salzkammergut.at/oesterreich-gastronomie/detail/100578/hotel-restaurant-gosauerhof.html"]]
+          }
+        ]
+      },
+      {
+        "id": "regen", "titel": "Schlechtwetter", "icon": "☔",
+        "frage": "Was machen wir bei Regen?",
+        "items": [
+          {
+            "id": "s-lammerklamm", "name": "Lammerklamm, Scheffau", "ort": "Scheffau am Tennengebirge", "anfahrt": "ca. 20 Min.",
+            "eckdaten": ["Klammwanderung", "ca. 9–10 € (2026)"], "kurz": "Wilde Schlucht der Lammer, auch bei Nieselregen schön. Weg teils schmal und rutschig.",
+            "hund": ["ok", "An der kurzen Leine erlaubt, Maulkorb sicherheitshalber mitnehmen"], "saison": "Apr.–Okt., im September ca. 9–18 Uhr",
+            "lat": 47.588, "lng": 13.2702, "pin": "Lammerklamm",
+            "quellen": [["salzburg.info", "https://www.salzburg.info/de/reiseinfos/salzburg-a-z/lammerklamm_az_10663"], ["tennengau.com", "https://www.tennengau.com/en/region/scheffau/lammerklamm/436244844220?s="]]
+          },
+          {
+            "id": "s-hallstatt", "name": "Hallstatt mit Salzwelten", "ort": "Hallstatt", "anfahrt": "ca. 40 Min.",
+            "eckdaten": ["Salzbergwerk + Ortsbummel"], "kurz": "Führung durchs Salzbergwerk (mit Bergmannsrutschen), danach Bummel durch den Ort.",
+            "hund": ["q", "Nicht ins Bergwerk, dafür gibt es Hundezwinger vor Ort"], "saison": "Öffnungszeiten für 2027 prüfen",
+            "lat": 47.5561, "lng": 13.6453, "pin": "Salzwelten",
+            "quellen": [["Salzwelten FAQ", "https://www.salzwelten.at/en/salzburg/faq"]]
+          },
+          {
+            "id": "s-aquasalza", "name": "Aqua Salza, Golling", "ort": "Golling an der Salzach", "anfahrt": "ca. 30 Min.",
+            "eckdaten": ["Erlebnisbad + Sauna"], "kurz": "Für einen Regentag zum Entspannen.",
+            "hund": ["no", "Keine Hunde – Hund bleibt im Quartier"], "saison": "Öffnungszeiten prüfen",
+            "lat": 47.596, "lng": 13.1745, "pin": "Aqua Salza",
+            "quellen": [["Infos zum Aqua Salza", "https://presseblick.at/blog/aqua-salza-golling-sauna-preise-oeffnungszeiten/"]]
+          }
+        ]
+      }
+    ]
+  },
   "demnaechst": [
     ["🗳️ Abstimmen", "über Unterkünfte, Touren und Restaurants – direkt hier statt per WhatsApp"],
     ["📌 Ideen-Pinnwand", "jeder trägt Vorschläge mit Link ein"],
@@ -321,21 +577,51 @@ $('#muss').innerHTML = DATA.muss.map(m => `<li class="ok"><i>•</i>${esc(m)}</l
 $('#plus').innerHTML = DATA.plus.map(p => `<span class="chip">${esc(p)}</span>`).join('');
 $('#soon').innerHTML = DATA.demnaechst.map(([t, d]) => `<div class="card"><h3>${esc(t)}</h3><div class="note">${esc(d)}</div></div>`).join('');
 
+// Programm
+const P = DATA.programm;
+const srcLinks = q => q.map(([t, l]) => `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');
+$('#prog-stand').textContent = P.stand;
+$('#prog-jump').innerHTML = P.abschnitte.map(a => `<a class="chip" href="#programm" data-jump="${esc(a.id)}">${a.icon} ${esc(a.titel)}</a>`).join('');
+$('#prog-hinweise').innerHTML = '<details style="margin:0;border:0;padding:0"><summary>Gut zu wissen: Hund, Bergbahnen, Herbst</summary>' + P.hinweise.map(([t, d, l]) =>
+  `<p class="note" style="margin:8px 0"><b>${esc(t)}:</b> ${esc(d)} <a href="${esc(l)}" target="_blank" rel="noopener">Quelle</a></p>`).join('') + '</details>';
+$('#programm').innerHTML = P.abschnitte.map(a => `<div id="abschnitt-${esc(a.id)}">
+  <h2>${a.icon} ${esc(a.titel)}</h2>
+  ${a.hinweis ? `<p class="note">${esc(a.hinweis)}</p>` : ''}
+  ${a.items.map(it => `<article class="card" id="p-${esc(it.id)}">
+    <h3>${esc(it.name)}</h3>
+    <div class="where">${esc(it.ort)} · ${esc(it.anfahrt)}</div>
+    <div class="meta">${it.eckdaten.map(e => `<span class="chip">${esc(e)}</span>`).join('')}</div>
+    <div>${esc(it.kurz)}</div>
+    <div class="line ${it.hund[0]}"><i>${icon[it.hund[0]]}</i>🐕 ${esc(it.hund[1])}</div>
+    <div class="line"><i>🕒</i>${esc(it.saison)}</div>
+    <div class="src">Quellen: ${srcLinks(it.quellen)}</div>
+    <div class="actions"><button class="btn" data-map="${esc(it.id)}">Auf Karte zeigen</button></div>
+  </article>`).join('')}
+  <div class="actions"><button class="btn primary" data-poll="${esc(a.id)}">Umfrage-Optionen kopieren</button></div>
+</div>`).join('');
+document.querySelectorAll('[data-jump]').forEach(c => c.addEventListener('click', e => {
+  e.preventDefault(); document.getElementById('abschnitt-' + c.dataset.jump).scrollIntoView({behavior: 'smooth'});
+}));
+
 // Toast
 function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 
 // WhatsApp-Umfrage
-$('#copyPoll').addEventListener('click', async () => {
-  const text = 'Unterkunft Annaberg 2027 – welche gefällt euch?\n' +
-    DATA.unterkuenfte.map((u, i) => `Option ${i + 1}: ${u.name}`).join('\n');
+async function copyText(text){
   try { await navigator.clipboard.writeText(text); toast('Kopiert – jetzt in WhatsApp einfügen'); }
   catch { prompt('Zum Kopieren markieren:', text); }
-});
+}
+$('#copyPoll').addEventListener('click', () => copyText('Unterkunft Annaberg 2027 – welche gefällt euch?\n' +
+  DATA.unterkuenfte.map((u, i) => `Option ${i + 1}: ${u.name}`).join('\n')));
+document.querySelectorAll('[data-poll]').forEach(b => b.addEventListener('click', () => {
+  const a = P.abschnitte.find(x => x.id === b.dataset.poll);
+  copyText(`Annaberg 2027 – ${a.frage}\n` + a.items.map(it => it.name).join('\n'));
+}));
 
 // Tabs
 let map, markers = {};
 // Tab steht in der Adresse (#karte), damit Neuladen, Zurück-Taste und Direktlinks funktionieren
-const TABS = ['unterkunft', 'karte', 'rahmen', 'bald'];
+const TABS = ['unterkunft', 'programm', 'karte', 'rahmen', 'bald'];
 function show(tab){
   if (!TABS.includes(tab)) tab = 'unterkunft';
   document.querySelectorAll('section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
@@ -366,12 +652,21 @@ function initMap(){
     m.addTo(map).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
     markers[u.id] = m; bounds.push([u.lat, u.lng]);
   });
+  const progLayer = L.layerGroup();
+  P.abschnitte.forEach(a => a.items.forEach(it => {
+    const pin = L.divIcon({className: 'prog-pin', html: a.icon, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12]});
+    const m = L.marker([it.lat, it.lng], {icon: pin, title: it.name}).addTo(progLayer)
+      .bindPopup(`<b>${esc(it.name)}</b><br>${esc(a.titel)} · ${esc(it.pin)}`);
+    markers[it.id] = m;
+  }));
+  progLayer.addTo(map);
+  L.control.layers(null, {'Programm': progLayer}, {collapsed: false}).addTo(map);
   DATA.orte.forEach(o => L.circleMarker([o.lat, o.lng], {radius: 6, color: '#5f6b66', fillOpacity: .8}).addTo(map).bindPopup(esc(o.name)));
   map.fitBounds(bounds, {padding: [40, 40]});
 }
 document.querySelectorAll('[data-map]').forEach(b => b.addEventListener('click', () => {
   go('karte');
-  setTimeout(() => { const m = markers[b.dataset.map]; if (m) { map.setView(m.getLatLng(), 14); m.openPopup(); } }, 120);
+  setTimeout(() => { const m = markers[b.dataset.map]; if (m) { map.setView(m.getLatLng(), 13); m.openPopup(); } }, 120);
 }));
 show(tabFromHash());
 </script>
