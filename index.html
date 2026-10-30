@@ -83,6 +83,7 @@ nav button.active{color:var(--accent);font-weight:600}
   <section id="tab-unterkunft" class="active">
     <h2>Unterkunft – Vorauswahl</h2>
     <p class="note" id="stand"></p>
+    <p class="note" id="taxe"></p>
     <div id="cards"></div>
 
     <div class="card">
@@ -151,13 +152,24 @@ nav button.active{color:var(--accent);font-weight:600}
     "ca. 1.000–2.000 € für die Woche, alles inklusive"
   ],
   "plus": ["3–4 Schlafzimmer", "Terrasse mit Bergblick", "eingezäunter Garten", "Sauna", "Waschmaschine / Trockenraum", "WLAN", "Gästekarte", "Supermarkt in der Nähe"],
-  "kurtaxe": {"proPersonNacht": 4.75, "hinweis": "Ortstaxe inkl. Mobilitätsabgabe laut einem Annaberger Vermieter, Stand 2026"},
+  "kurtaxe": {
+    "proPersonNacht": 4.75,
+    "hinweis": "Ortstaxe inkl. Mobilitätsabgabe: grob mit 4,75 € pro Person und Nacht gerechnet (Angabe eines Annaberger Vermieters, 2026). Ein anderes Inserat nennt 3,55 € ab 14 Jahren; die Mobilitätsabgabe steigt ab Mai 2027 von 0,50 € auf 1,10 €. Den genauen Betrag beim Vermieter erfragen.",
+    "quellen": [
+      ["Mobilitätsabgabe (LK Salzburg)", "https://sbg.lko.at/mobilitätsabgabe-ab-1-mai-für-touristische-unterkünfte+2400+4152062"],
+      ["Inserat mit 3,55 € (bergfex)", "https://www.bergfex.at/sommer/annaberg-lungoetz-lammertal/ferienhaus-haus-annaberg36/"]
+    ]
+  },
+  "orte": [
+    {"name": "Annaberg im Lammertal (Ortsmitte)", "lat": 47.5167, "lng": 13.4333},
+    {"name": "Donnerkogelbahn (Talstation)", "lat": 47.5184, "lng": 13.4509}
+  ],
   "unterkuenfte": [
     {
       "id": "bauernhaus-promberg",
       "name": "Bauernhaus über Promberg",
       "ort": "Annaberg-Lungötz, Alleinlage oberhalb Ortsteil Promberg",
-      "lat": 47.543, "lng": 13.422, "lageUngefaehr": true,
+      "lat": 47.5039, "lng": 13.4278, "lageUngefaehr": true,
       "ab": 107,
       "bewertung": "9,8/10 (12 Bewertungen)",
       "kurz": "Urig-rustikales Bauernhaus, ca. 120 m², ruhige Alleinlage auf einer Anhöhe mit Blick aufs Tennengebirge. Kachelofen, alte Holzdielen.",
@@ -268,6 +280,8 @@ const nights = 7, persons = 4;
 
 $('#facts').innerHTML = DATA.trip.facts.map(f => `<span class="chip">${esc(f)}</span>`).join('');
 $('#stand').textContent = DATA.trip.stand;
+$('#taxe').innerHTML = esc(DATA.kurtaxe.hinweis) + ' Quellen: ' +
+  DATA.kurtaxe.quellen.map(([t, l]) => `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(', ');
 
 const icon = {ok:'✓', q:'?', no:'✗'};
 $('#cards').innerHTML = DATA.unterkuenfte.map((u, i) => {
@@ -333,7 +347,7 @@ function initMap(){
     m.addTo(map).bindPopup(`<b>Option ${i + 1}: ${esc(u.name)}</b><br>${u.ab ? 'ab ' + u.ab + ' € / Nacht' : 'Preis auf Anfrage'}${u.lageUngefaehr ? '<br><i>Lage ungefähr</i>' : ''}`);
     markers[u.id] = m; bounds.push([u.lat, u.lng]);
   });
-  L.marker([47.5337, 13.4363], {opacity:.7}).addTo(map).bindPopup('Annaberg Ort (ungefähr)');
+  DATA.orte.forEach(o => L.circleMarker([o.lat, o.lng], {radius: 6, color: '#5f6b66', fillOpacity: .8}).addTo(map).bindPopup(esc(o.name)));
   map.fitBounds(bounds, {padding: [40, 40]});
 }
 document.querySelectorAll('[data-map]').forEach(b => b.addEventListener('click', () => {

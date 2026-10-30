@@ -41,7 +41,8 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 3. **Großes Chalet mit eigener Sauna, Alpendorf** – 138 m², 4 SZ (Doppelbetten), 2 Bäder + sep. WC, ab 165 €/Nacht, 9,6/10 (11). Über dieselbe Hunde-Übersicht.
 4. **Haus Schipplegg, FW 1** – 65 m², 2 Doppelzimmer, 1 Bad, Alleinlage 950 m, Haustiere nach Absprache, Preis auf Anfrage. https://www.ferienhausmiete.de/161143.htm
 - **Ausgeschieden (keine Haustiere):** Haus Dolomitenblick (174583), Chalet Alpenstern (59462), Chalet Rosa Maria (413768), Chalet Almhaus 30 (20499) – alle ferienhausmiete.de.
-- Ortstaxe ca. **4,75 €/Person/Nacht** (laut einem Annaberger Vermieter, Stand 2026).
+- Ortstaxe: gerechnet mit **4,75 €/Person/Nacht** (laut einem Annaberger Vermieter, Stand 2026). Geprüft 30.10.2026: offizieller Satz nicht lesbar (Gemeinde-Verordnung „besondere Nächtigungsabgabe ab 01.07.2026“ nur als signiertes PDF); ein Inserat nennt 3,55 € ab 14 J. (https://www.bergfex.at/sommer/annaberg-lungoetz-lammertal/ferienhaus-haus-annaberg36/); Mobilitätsabgabe Salzburg 0,50 € → 1,10 € ab Mai 2027, unter 15 J. frei (https://sbg.lko.at/mobilitätsabgabe-ab-1-mai-für-touristische-unterkünfte+2400+4152062). → Beim Vermieter erfragen.
+- Kartenkoordinaten geprüft per OpenStreetMap/Nominatim (30.10.2026): Ortsmitte 47.5167, 13.4333; Promberg 47.5039, 13.4278; Talstation Donnerkogelbahn 47.5184, 13.4509; Alpendorf Dachstein West 47.5149, 13.4499.
 - Bei allen offen: echter Wochenpreis Sept. 2027 inkl. Nebenkosten, Hund allein erlaubt?
 
 ## Technik
@@ -72,7 +73,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - Nur Lammertal oder auch Gosau/Abtenau o. Ä.?
 
 ## Nächste Schritte
-1. Git-Repo anlegen, auf GitHub als `annaberg-2027` veröffentlichen, GitHub Pages aktivieren, Link prüfen.
+1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
 3. Anfragen an die Favoriten (Wochenpreis, Parkplätze, Hund allein) → Ergebnisse im JSON-Block nachtragen.
 4. Touren, Klettersteige, Hütten, Restaurants recherchieren.
