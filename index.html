@@ -85,6 +85,10 @@ nav button.active{color:var(--accent);font-weight:600}
 .note a{color:var(--accent)}
 .jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
 .jump a{text-decoration:none;color:var(--ink)}
+.wx{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.wx td{padding:5px 0;border-bottom:1px solid var(--line)}
+.wx td:first-child{color:var(--ink);width:auto}
+.wx td.r{text-align:right;white-space:nowrap}
 .num-pin{background:var(--accent);color:var(--accent-ink);border:2px solid #fff;border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.35)}
 </style>
@@ -117,6 +121,7 @@ nav button.active{color:var(--accent);font-weight:600}
   <section id="tab-programm">
     <h2>Programm – Vorschläge</h2>
     <p class="note" id="prog-stand"></p>
+    <div class="card" id="wetter"></div>
     <div class="jump" id="prog-jump"></div>
     <div class="card" id="prog-hinweise"></div>
     <div id="programm"></div>
@@ -159,6 +164,12 @@ nav button.active{color:var(--accent);font-weight:600}
   "trip": {
     "title": "Annaberg 2027",
     "from": "2027-09-11", "to": "2027-09-18", "personen": 4,
+    "wetter": {
+      "lat": 47.5167, "lng": 13.4333,
+      "klima": {"zeitraum": "11.–18.09. der Jahre 2016–2025", "maxSchnitt": 19.7, "minSchnitt": 9.3, "regentageProzent": 48, "waermster": 28.3, "kaeltesterMorgen": -0.2},
+      "hinweis": "Faustregel: pro 100 Höhenmeter ca. 0,65 °C kühler – auf 1.500 m also rund 5 °C weniger als im Ort.",
+      "quelle": ["Open-Meteo (Wetterarchiv und Vorhersage, CC BY 4.0)", "https://open-meteo.com/"]
+    },
     "facts": ["Sa 11.–Sa 18.09.2027", "7 Nächte", "4 Personen + Golden Retriever", "2 Autos", "Budget 1.000–2.000 €"],
     "stand": "Stand 30.10.2026 · Preise sind „ab“-Preise der Portale, der echte Wochenpreis für September kommt erst mit der Anfrage."
   },
@@ -300,7 +311,7 @@ nav button.active{color:var(--accent);font-weight:600}
         "frage": "Welche Wanderungen wollt ihr machen?",
         "items": [
           {
-            "id": "w-koernerhuette", "name": "Annaberg – Stuhlalm – Theodor-Körner-Hütte",
+            "id": "w-koernerhuette", "nav": [47.5155, 13.4613], "name": "Annaberg – Stuhlalm – Theodor-Körner-Hütte",
             "ort": "Start Ortsmitte Annaberg (oder kürzer ab Parkplatz Pommer)", "anfahrt": "direkt ab Ort",
             "eckdaten": ["15,4 km", "ca. 5,7 Std.", "905 Hm"],
             "kurz": "Von Hütte zu Hütte am Fuß des Gosaukamms. Rückweg gleich oder über den Austriaweg zur Zwieselalm (teils unmarkiert).",
@@ -320,7 +331,7 @@ nav button.active{color:var(--accent);font-weight:600}
             "quellen": [["Wanderdörfer", "https://www.wanderdoerfer.at/salzburg/wanderweg/salzalpentour-annaberg-stuhlalm-stuhlloch-loseggalmen-30-punkte/"]]
           },
           {
-            "id": "w-gablonzer", "name": "Gosausee – Gablonzer Hütte – Zwieselalm",
+            "id": "w-gablonzer", "nav": [47.5402, 13.4964], "name": "Gosausee – Gablonzer Hütte – Zwieselalm",
             "ort": "Start Parkplatz Vorderer Gosausee", "anfahrt": "ca. 30 Min.",
             "eckdaten": ["ca. 2 Std. hinauf", "ca. 600–750 Hm", "oder per Gosaukammbahn"],
             "kurz": "Aufstieg vom Gosausee zur Zwieselalm mit Dachsteinblick. Abkürzung mit der Gosaukammbahn, oben Rundwege um die Zwieselalm (ca. 2,5 Std., 300 Hm).",
@@ -330,7 +341,7 @@ nav button.active{color:var(--accent);font-weight:600}
             "quellen": [["Gablonzer Hütte (Bergwelten)", "https://www.bergwelten.com/h/gablonzer-huette"], ["Gosaukammbahn", "https://www.dachstein.at/de/sommer/bergbahnen/gosaukammbahn"]]
           },
           {
-            "id": "w-gosausee", "name": "Gosauseen: Vorderer – Hinterer Gosausee – Holzmeisteralm",
+            "id": "w-gosausee", "nav": [47.5402, 13.4964], "name": "Gosauseen: Vorderer – Hinterer Gosausee – Holzmeisteralm",
             "ort": "Start Parkplatz Vorderer Gosausee", "anfahrt": "ca. 30 Min.",
             "eckdaten": ["5,6 km", "ca. 1,5 Std.", "200 Hm", "mit Seeumrundung länger"],
             "kurz": "Am Ufer mit Dachstein-Gletscherblick, an der Gosaulacke vorbei zum Hinteren Gosausee und zur Hohen Holzmeisteralm. Gut für einen ruhigeren Tag oder als Kombi mit dem Laserer-Klettersteig.",
@@ -360,7 +371,7 @@ nav button.active{color:var(--accent);font-weight:600}
             "quellen": [["Laufener Hütte (Bergwelten)", "https://www.bergwelten.com/h/laufener-huette"], ["Outdoor-Magazin", "https://www.outdoor-magazin.com/wanderwege/tennengebirge-laufener-huette/"]]
           },
           {
-            "id": "w-edtalm", "name": "Annaberg: Teufelsgraben – Edtalm – Rottenhofhütte",
+            "id": "w-edtalm", "nav": null, "name": "Annaberg: Teufelsgraben – Edtalm – Rottenhofhütte",
             "ort": "Start Parkplatz Korreit", "anfahrt": "ca. 5 Min.",
             "eckdaten": ["4,7 km hinauf", "ca. 1,6 Std. hinauf", "370 Hm", "Verlängerung Hornspitz"],
             "kurz": "Kürzere Runde für den Anreise- oder Ruhetag: steil durch den Teufelsgraben zur Edtalm, zurück über die Rottenhofhütte.",
@@ -387,7 +398,7 @@ nav button.active{color:var(--accent);font-weight:600}
             "quellen": [["Ausschreibung (Steiermark Tourismus)", "https://www.steiermark.com/de/Schladming-Dachstein/Urlaub-planen/Veranstaltungen/Klettersteigschein-Gipfelstuermer_ed_76126229"]]
           },
           {
-            "id": "k-kali", "name": "Kali (A/B) und Kala (B), Sattelberg Ramsau",
+            "id": "k-kali", "nav": [47.4276, 13.7046], "name": "Kali (A/B) und Kala (B), Sattelberg Ramsau",
             "ort": "Ramsau am Dachstein, Sattelberg", "anfahrt": "ca. 60 Min.",
             "eckdaten": ["A/B und B", "kurz"],
             "kurz": "Leichte Übungssteige direkt neben dem Kursort – z. B. vor dem Kurs am Montag zum Reinschnuppern.",
@@ -407,7 +418,7 @@ nav button.active{color:var(--accent);font-weight:600}
             "quellen": [["hallstatt.net", "https://www.hallstatt.net/ueber-hallstatt/aktiv-urlaub-im-salzkammergut/klettern-adrenalin-pur/klettersteige/kinder-und-jugend-klettersteig-max-and-moritz/"]]
           },
           {
-            "id": "k-laserer", "name": "Laserer alpin, Vorderer Gosausee",
+            "id": "k-laserer", "nav": [47.5402, 13.4964], "name": "Laserer alpin, Vorderer Gosausee",
             "ort": "Start Gosausee-Ostuferweg", "anfahrt": "ca. 30 Min.",
             "eckdaten": ["B–B/C, einzelne C-Stellen", "ca. 1,5 Std. gesamt"],
             "kurz": "Runde über dem Gosausee mit Seilleiter und Seilbrücke, Blick auf den Dachstein. Laut Betreiber nur bedingt für Anfänger – daher als Abschluss. Der Hund kann mit jemandem die Seerunde gehen.",
@@ -423,35 +434,35 @@ nav button.active{color:var(--accent);font-weight:600}
         "frage": "Auf welche Hütte habt ihr Lust?",
         "items": [
           {
-            "id": "h-koerner", "name": "Theodor-Körner-Hütte (1.456 m)", "ort": "Gosaukamm, oberhalb Annaberg", "anfahrt": "Wanderung",
+            "id": "h-koerner", "nav": [47.5155, 13.4613], "name": "Theodor-Körner-Hütte (1.456 m)", "ort": "Gosaukamm, oberhalb Annaberg", "anfahrt": "Wanderung",
             "eckdaten": ["ca. 1,5 Std. ab Annaberg-Seite"], "kurz": "Alpenvereinshütte direkt neben der Stuhlalm.",
             "hund": ["ok", "Haustiere erlaubt"], "saison": "ca. Ende Mai–Anfang Okt.",
             "lat": 47.5055, "lng": 13.4783, "pin": "Körnerhütte",
             "quellen": [["Tourismus Dachstein Salzkammergut", "https://dachstein.salzkammergut.at/en/oesterreich-gastronomie/detail/430000909/theodor-koerner-hut.html"]]
           },
           {
-            "id": "h-stuhlalm", "name": "Stuhlalm (1.467 m)", "ort": "Sonnenseite des Gosaukamms", "anfahrt": "Wanderung",
+            "id": "h-stuhlalm", "nav": [47.5155, 13.4613], "name": "Stuhlalm (1.467 m)", "ort": "Sonnenseite des Gosaukamms", "anfahrt": "Wanderung",
             "eckdaten": ["ab Parkplatz Pommer"], "kurz": "Klassische Alm mit Blick auf die Bischofsmütze, Ausgangspunkt für mehrere Touren.",
             "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Mai–Nov.",
             "lat": 47.5071, "lng": 13.4817, "pin": "Stuhlalm",
             "quellen": [["Almen & Hütten (TVB Annaberg)", "https://www.annaberg-lungoetz.com/de/sommer/wandern/almen-huetten-dachstein-west-oesterreichische-wanderdoerfer.html"]]
           },
           {
-            "id": "h-gablonzer", "name": "Gablonzer Hütte (1.550 m)", "ort": "Zwieselalm, Gosau", "anfahrt": "Bahn oder Wanderung",
+            "id": "h-gablonzer", "nav": [47.5402, 13.4964], "name": "Gablonzer Hütte (1.550 m)", "ort": "Zwieselalm, Gosau", "anfahrt": "Bahn oder Wanderung",
             "eckdaten": ["10 Min. ab Bergstation Gosaukammbahn"], "kurz": "Große Hütte auf der Zwieselalm unter dem Donnerkogel – auch mit Bahn erreichbar.",
             "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Sommer ca. Mitte Mai–Ende Okt.",
             "lat": 47.5331, "lng": 13.4797, "pin": "Gablonzer Hütte",
             "quellen": [["Bergwelten", "https://www.bergwelten.com/h/gablonzer-huette"]]
           },
           {
-            "id": "h-hofpuergl", "name": "Hofpürglhütte (1.705 m)", "ort": "Filzmoos, an der Bischofsmütze", "anfahrt": "ca. 50 Min. + 50 Min. Fußweg",
+            "id": "h-hofpuergl", "nav": [47.4772, 13.5321], "name": "Hofpürglhütte (1.705 m)", "ort": "Filzmoos, an der Bischofsmütze", "anfahrt": "ca. 50 Min. + 50 Min. Fußweg",
             "eckdaten": ["ab Parkplatz Aualm ca. 50 Min."], "kurz": "Alpenvereinshütte direkt unter der Bischofsmütze.",
             "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "bis ca. 27.09.",
             "lat": 47.4822, "lng": 13.519, "pin": "Hofpürglhütte",
             "quellen": [["Tourismus Dachstein Salzkammergut", "https://dachstein.salzkammergut.at/oesterreich-gastronomie/detail/101032/hofpuerglhuette.html"]]
           },
           {
-            "id": "h-rottenhof", "name": "Rottenhofhütte (1.378 m)", "ort": "Annaberg, nahe Donnerkogelbahn", "anfahrt": "Wanderung",
+            "id": "h-rottenhof", "nav": null, "name": "Rottenhofhütte (1.378 m)", "ort": "Annaberg, nahe Donnerkogelbahn", "anfahrt": "Wanderung",
             "eckdaten": ["an der Edtalm-Runde"], "kurz": "Gute Einkehr auf dem Rückweg vom Parkplatz Korreit aus.",
             "hund": ["q", "Keine Hundeinfo gefunden"], "saison": "Öffnungszeiten nicht gefunden",
             "lat": 47.5361, "lng": 13.4636, "pin": "Rottenhofhütte",
@@ -577,6 +588,17 @@ $('#muss').innerHTML = DATA.muss.map(m => `<li class="ok"><i>•</i>${esc(m)}</l
 $('#plus').innerHTML = DATA.plus.map(p => `<span class="chip">${esc(p)}</span>`).join('');
 $('#soon').innerHTML = DATA.demnaechst.map(([t, d]) => `<div class="card"><h3>${esc(t)}</h3><div class="note">${esc(d)}</div></div>`).join('');
 
+// Navigation: iPhone/iPad öffnet Apple Karten, alle anderen Google Maps
+const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+function navLink(it){
+  const t = it.nav === null ? null : (it.nav || [it.lat, it.lng]);
+  if (!t) return '';
+  const url = isApple
+    ? `https://maps.apple.com/?daddr=${t[0]},${t[1]}&dirflg=d`
+    : `https://www.google.com/maps/dir/?api=1&destination=${t[0]},${t[1]}&travelmode=driving`;
+  return `<a class="btn primary" href="${url}" target="_blank" rel="noopener">Route zum Start</a>`;
+}
+
 // Programm
 const P = DATA.programm;
 const srcLinks = q => q.map(([t, l]) => `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');
@@ -595,13 +617,54 @@ $('#programm').innerHTML = P.abschnitte.map(a => `<div id="abschnitt-${esc(a.id)
     <div class="line ${it.hund[0]}"><i>${icon[it.hund[0]]}</i>🐕 ${esc(it.hund[1])}</div>
     <div class="line"><i>🕒</i>${esc(it.saison)}</div>
     <div class="src">Quellen: ${srcLinks(it.quellen)}</div>
-    <div class="actions"><button class="btn" data-map="${esc(it.id)}">Auf Karte zeigen</button></div>
+    <div class="actions">${navLink(it)}<button class="btn" data-map="${esc(it.id)}">Auf Karte zeigen</button></div>
   </article>`).join('')}
   <div class="actions"><button class="btn primary" data-poll="${esc(a.id)}">Umfrage-Optionen kopieren</button></div>
 </div>`).join('');
 document.querySelectorAll('[data-jump]').forEach(c => c.addEventListener('click', e => {
   e.preventDefault(); document.getElementById('abschnitt-' + c.dataset.jump).scrollIntoView({behavior: 'smooth'});
 }));
+
+// Wetter: Klima aus dem Archiv; ab 16 Tagen vor Reisebeginn Live-Vorhersage (Open-Meteo, ohne Schlüssel)
+const W = DATA.trip.wetter;
+const wxIcon = c => c === 0 ? '☀️' : c <= 2 ? '🌤️' : c === 3 ? '☁️' : c <= 48 ? '🌫️' : c <= 67 ? '🌧️' : c <= 77 ? '🌨️' : c <= 82 ? '🌦️' : '⛈️';
+const day = d => new Date(d + 'T12:00:00');
+const iso = d => d.toISOString().slice(0, 10);
+const de = n => n.toLocaleString('de-DE');
+const fmtDay = d => day(d).toLocaleDateString('de-DE', {weekday: 'short', day: '2-digit', month: '2-digit'});
+function renderWetter(){
+  const k = W.klima, today = new Date(); today.setHours(12, 0, 0, 0);
+  const start = day(DATA.trip.from), end = day(DATA.trip.to);
+  const daysTo = Math.round((start - today) / 864e5);
+  const quelle = `<p class="src">Wetterdaten: <a href="${esc(W.quelle[1])}" target="_blank" rel="noopener">${esc(W.quelle[0])}</a></p>`;
+  const klima = `<p style="margin:6px 0">So war es ${esc(k.zeitraum)} im Ort (776 m):</p>
+    <div class="meta"><span class="chip">☀️ tagsüber Ø ${de(k.maxSchnitt)} °C</span><span class="chip">🌙 morgens Ø ${de(k.minSchnitt)} °C</span>
+    <span class="chip">🌧️ an ${k.regentageProzent} % der Tage Regen</span><span class="chip">Spanne ${de(k.kaeltesterMorgen)} bis ${de(k.waermster)} °C</span></div>
+    <p class="note">${esc(W.hinweis)}</p>`;
+  const force = new URLSearchParams(location.search).has('wetter');
+  const live = force || (daysTo <= 15 && today <= end);
+  const head = daysTo > 0 ? `<h3>Wetter · noch ${daysTo} Tage</h3>` : '<h3>Wetter</h3>';
+  if (!live) {
+    const ab = new Date(start); ab.setDate(ab.getDate() - 15);
+    $('#wetter').innerHTML = head + klima + `<p class="note">Die echte Vorhersage erscheint hier automatisch ab ${ab.toLocaleDateString('de-DE')}.</p>` + quelle;
+    return;
+  }
+  // Zeitraum: Reisetage, soweit vorhersagbar (max. 16 Tage); im Testmodus die nächsten 7 Tage
+  let from = force ? today : (start > today ? start : today);
+  let to = force ? new Date(today.getTime() + 6 * 864e5) : end;
+  const max = new Date(today.getTime() + 15 * 864e5); if (to > max) to = max;
+  $('#wetter').innerHTML = head + '<p class="note">Vorhersage wird geladen …</p>';
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${W.lat}&longitude=${W.lng}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FVienna&start_date=${iso(from)}&end_date=${iso(to)}`;
+  fetch(url).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(d => {
+    const t = d.daily;
+    $('#wetter').innerHTML = head + '<p style="margin:6px 0">Vorhersage für Annaberg (Ort):</p><table class="wx">' +
+      t.time.map((x, i) => `<tr><td>${fmtDay(x)}</td><td>${wxIcon(t.weather_code[i])}</td>
+        <td class="r">${Math.round(t.temperature_2m_min[i])}–${Math.round(t.temperature_2m_max[i])} °C</td>
+        <td class="r">💧 ${t.precipitation_probability_max[i] ?? '–'} %</td></tr>`).join('') + '</table>' +
+      `<p class="note">${esc(W.hinweis)}</p>` + quelle;
+  }).catch(() => { $('#wetter').innerHTML = head + '<p class="note">Vorhersage gerade nicht erreichbar – hier das übliche Septemberwetter:</p>' + klima + quelle; });
+}
+renderWetter();
 
 // Toast
 function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
