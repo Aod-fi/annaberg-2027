@@ -1,7 +1,7 @@
 # CLAUDE.md – Projekt „Annaberg 2027“
 
 Diese Datei ist das Projektgedächtnis für Claude Code. Sie wird bei jedem Start gelesen.
-Stand: 30.10.2026 (App-Version 1.4). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
+Stand: 30.10.2026 (App-Version 1.5). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
 
 ## Arbeitsweise mit Uwe (verbindlich)
 - Sprache: Deutsch.
@@ -40,12 +40,13 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - Offen beim Programm: Hunderegeln vieler Hütten/Restaurants, Termine 2027 (Kurs, Bahnen, Hütten) vor der Reise prüfen.
 
 ## Unterkunfts-Vorauswahl (Recherche 30.10.2026, „ab“-Preise der Portale)
-1. **Bauernhaus über Promberg** – 120 m², 4 SZ (davon 1 Zweibettzimmer), 2 Bäder, eingezäunter Garten, Baumhaussauna, Kachelofen, Alleinlage, Hunde willkommen, ab 107 €/Nacht, 9,8/10 (12). Gefunden über die Hunde-Übersicht https://www.ferienwohnungen.de/urlaub-mit-hund/europa/oesterreich/annaberg-lungoetz/ (Direktlink fehlt noch). Offen: 2 Parkplätze? Hund allein?
+1. **Bauernhaus über Promberg** – 120 m², 4 SZ (davon 1 Zweibettzimmer), 2 Bäder, eingezäunter Garten, Baumhaussauna, Kachelofen, Alleinlage, Hunde willkommen, ab 107 €/Nacht, 9,8/10 (12). Inserat: https://www.ferienwohnungen.de/d/30348988 (dort „Almliesl Lung“, Kopfzeile nennt 3 SZ, Beschreibung 4 SZ). Offen: 2 Parkplätze? Hund allein?
 2. **Chalet #75, Alpendorf Dachstein West** – 90 m², 3 SZ (2× Doppel, 1× zwei Einzelbetten), 2 Bäder, Hallenbad/Sauna der Anlage, Minimarkt, Hunde erlaubt, ab ca. 114 €/Nacht, kostenlos stornierbar bis 30 Tage. https://www.traum-ferienwohnungen.de/757831/ – Anlage: Steuer 62, GPS 47.51472, 13.45087.
-3. **Großes Chalet mit eigener Sauna, Alpendorf** – 138 m², 4 SZ (Doppelbetten), 2 Bäder + sep. WC, ab 165 €/Nacht, 9,6/10 (11). Über dieselbe Hunde-Übersicht.
+3. **Großes Chalet mit eigener Sauna, Alpendorf** – 138 m², 4 SZ (Doppelbetten), 2 Bäder + sep. WC, ab 165 €/Nacht, 9,6/10 (11). Inserat: https://www.ferienwohnungen.de/d/70247469 („Superior Ferienhaus # 91“).
 4. **Haus Schipplegg, FW 1** – 65 m², 2 Doppelzimmer, 1 Bad, Alleinlage 950 m, Haustiere nach Absprache, Preis auf Anfrage. https://www.ferienhausmiete.de/161143.htm
 - **Ausgeschieden (keine Haustiere):** Haus Dolomitenblick (174583), Chalet Alpenstern (59462), Chalet Rosa Maria (413768), Chalet Almhaus 30 (20499) – alle ferienhausmiete.de.
 - Ortstaxe: gerechnet mit **4,75 €/Person/Nacht** (laut einem Annaberger Vermieter, Stand 2026). Geprüft 30.10.2026: offizieller Satz nicht lesbar (Gemeinde-Verordnung „besondere Nächtigungsabgabe ab 01.07.2026“ nur als signiertes PDF); ein Inserat nennt 3,55 € ab 14 J. (https://www.bergfex.at/sommer/annaberg-lungoetz-lammertal/ferienhaus-haus-annaberg36/); Mobilitätsabgabe Salzburg 0,50 € → 1,10 € ab Mai 2027, unter 15 J. frei (https://sbg.lko.at/mobilitätsabgabe-ab-1-mai-für-touristische-unterkünfte+2400+4152062). → Beim Vermieter erfragen.
+- ferienwohnungen.de: Inserate haben die Form `/d/<ID>`; die Übersichtsseite zeigt sie nur per Skript (IDs im Seitenquelltext).
 - Kartenkoordinaten geprüft per OpenStreetMap/Nominatim (30.10.2026): Ortsmitte 47.5167, 13.4333; Promberg 47.5039, 13.4278; Talstation Donnerkogelbahn 47.5184, 13.4509; Alpendorf Dachstein West 47.5149, 13.4499.
 - Bei allen offen: echter Wochenpreis Sept. 2027 inkl. Nebenkosten, Hund allein erlaubt?
 
@@ -74,7 +75,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ### Versionierung
 - Versionsnummer + „Was ist neu“ stehen im JSON `versionen` (neueste zuerst) und werden in der Übersicht angezeigt.
 - Bei jeder Veröffentlichung mit sichtbarer Änderung: neuen Eintrag oben in `versionen` (Nummer x.y, Datum, 1–3 Punkte in Gruppen-Sprache), committen, Git-Tag `vx.y` setzen und mit pushen (`git push origin main --tags`). Kleine Inhaltskorrekturen ohne neue Funktion: zweite Stelle hochzählen; neue Bereiche/Funktionen: ebenfalls zweite Stelle; großer Umbau (z. B. Stufe 2 Supabase): 2.0.
-- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung.
+- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung · 1.5 Direktlinks zu allen Unterkünften.
 
 ### Grundregeln
 - **Keine sensiblen Daten** auf der Seite oder im Repo: keine Buchungsnummern, Adressen der gebuchten Unterkunft, Telefonnummern, Zugangsdaten.
@@ -109,7 +110,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ## Nächste Schritte
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
-3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.4).
+3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.5).
 4. Weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
 
 ## Entscheidungslog
