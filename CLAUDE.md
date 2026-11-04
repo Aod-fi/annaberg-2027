@@ -1,7 +1,7 @@
 # CLAUDE.md – Projekt „Annaberg 2027“
 
 Diese Datei ist das Projektgedächtnis für Claude Code. Sie wird bei jedem Start gelesen.
-Stand: 30.10.2026 (App-Version 1.6). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
+Stand: 04.11.2026 (App-Version 1.6.1). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
 
 ## Arbeitsweise mit Uwe (verbindlich)
 - Sprache: Deutsch.
@@ -46,7 +46,11 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 4. **Haus Schipplegg, FW 1** – 65 m², 2 Doppelzimmer, 1 Bad, Alleinlage 950 m, Haustiere nach Absprache, Preis auf Anfrage. https://www.ferienhausmiete.de/161143.htm
 5. **Haus Bergfried, 4-Raum-Appartement (Filzmoos)** – 110 m², 3 SZ je mit Bad/WC + sep. WC, Hunde willkommen (20 €/Nacht), Endreinigung 70 €, Ortstaxe 3,10 € ab 15 J., ab 85 €/Nacht (vermutlich kleinste Wohnung), 4,8/5 (3). Gästehaus, ca. 40 Min. nach Annaberg. https://www.ferienhausmiete.de/35670.htm
 6. **Obweghof Abtenau, Apartment mit Bergblick** – 75 m², 2 SZ je Doppel- + Einzelbett, 2 Bäder, Haustiere erlaubt, ab 192 €/Nacht, 9,7/10 (26, Booking.com), ca. 20 Min. https://www.ferienwohnungen.de/d/49292513
-7. **Richlegghof, Appartement im Holzblockhaus (Filzmoos-Neuberg)** – 60 m², 2 SZ (Doppelbett) je mit Du/WC, Haustiere nach Absprache, ab 114 €/Nacht, keine Bewertungen, ca. 30 Min. https://www.ferienhausmiete.de/17544.htm
+7. (ausgeschieden 04.11.2026: am Termin belegt) **Richlegghof, Appartement im Holzblockhaus (Filzmoos-Neuberg)** – 60 m², 2 SZ (Doppelbett) je mit Du/WC, Haustiere nach Absprache, ab 114 €/Nacht, keine Bewertungen, ca. 30 Min. https://www.ferienhausmiete.de/17544.htm
+8. **Bauernhaus Lammertal (St. Martin am Tennengebirge)** – 180 m², 5 SZ (Doppelbett), 2 Bäder + 3 WCs, WLAN, Kachelofen, Haustiere willkommen (30 € pro Aufenthalt), Nebenkosten 30–50 €/Person, Ortstaxe 3,50 €, Woche 1.582 €, gesamt grob 1.850–1.900 €, keine Bewertungen, ca. 10 Min. https://www.ferienwohnungen.de/d/64960711
+9. **Ferienwohnung Schoberhof (Filzmoos)** – 100 m², 3 SZ, 2 Bäder + WC, Woche 1.048 €, 9,2/10 (6, Booking.com), ca. 35 Min. https://www.ferienwohnungen.de/d/39371477
+10. **Große Ferienwohnung Filzmoos** – 125 m², 3 SZ, 2 Bäder, Woche 1.551 €, 9,6/10 (12, Booking.com), ca. 35–40 Min. https://www.ferienwohnungen.de/d/46138782
+- Ebenfalls verworfen (04.11.2026): Haus Schlager Annaberg (2.581 €), Haus 1927 Hüttau (2.405 €), Schlicki's Bergchalet (4.060 €), Vergißmeinnicht/Haus Dachstein/Leitner (keine Haustiere). Datierte Suche: ferienwohnungen.de `/s/<Ort>?checkin=2027-09-11&checkout=2027-09-18&adults=4&amenities=PETS_ALLOWED`. `pets=1` ändert den Preis nicht, die Hundegebühr steckt also nicht im Portalpreis.
 - Geprüft und verworfen (30.10.2026): Almliesl ABTE-395 Abtenau (nur 1 Bad/WC für alles), Chalet Abtenau 132 m² (ab 296 €/Nacht), Ferienhaus Eckstoa (ab 350 €), Richlegg 3-SZ-Appartement (Hund nicht erwähnt). Fast alle Hunde-Angebote in Annaberg selbst sind Chalets im Alpendorf (Alps Resorts, 90–138 m², ab 114–174 €).
 - Faktencheck 30.10.2026: Chalet #75 hat 1 Bewertung (10/10, ferienwohnungen.de), Kaution 350 €, ca. 500 m zum Lift; Großes Chalet: 3× Doppelbett + 1× Doppel + Stockbett; Schipplegg-Pin aus dem Inserat 47.5144, 13.4597; ausgeschiedene vier weiterhin „Haustiere nicht erlaubt“.
 - Verfügbarkeit 11.–18.09.2027, geprüft 04.11.2026 (4 Erw., Portalpreis Woche): Bauernhaus Promberg frei 1.093 € (Reinigung 120 €, Hund, Bettwäsche extra); Chalet #75 frei 1.161 € (Reinigung + Bettwäsche inkl.); Großes Chalet frei 1.832 € (Reinigung + Bettwäsche inkl.); Obweghof frei 1.302 €; Haus Bergfried laut Kalender frei (nur Anfrage, Kalender Stand 18.10.2026); **Richlegghof belegt 05.–14.09.2027**; Schipplegg online nicht prüfbar (Anfrage nötig). Prüfung: ferienwohnungen.de `/d/<ID>?checkin=2027-09-11&checkout=2027-09-18&adults=4&pets=1`; ferienhausmiete.de `available_meta`/`unavailable_dates` im Seitenquelltext.
@@ -81,7 +85,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ### Versionierung
 - Versionsnummer + „Was ist neu“ stehen im JSON `versionen` (neueste zuerst) und werden in der Übersicht angezeigt.
 - Bei jeder Veröffentlichung mit sichtbarer Änderung: neuen Eintrag oben in `versionen` (Nummer x.y, Datum, 1–3 Punkte in Gruppen-Sprache), committen, Git-Tag `vx.y` setzen und mit pushen (`git push origin main --tags`). Kleine Inhaltskorrekturen ohne neue Funktion: zweite Stelle hochzählen; neue Bereiche/Funktionen: ebenfalls zweite Stelle; großer Umbau (z. B. Stufe 2 Supabase): 2.0.
-- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung · 1.5 Direktlinks zu allen Unterkünften · 1.6 drei weitere Unterkünfte + Faktencheck.
+- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung · 1.5 Direktlinks zu allen Unterkünften · 1.6 drei weitere Unterkünfte + Faktencheck · 1.6.1 Wochenpreise, Verfügbarkeit, drei weitere Unterkünfte (Inhaltsstände ohne neue Funktion: dritte Stelle, so von Uwe gewünscht).
 
 ### Grundregeln
 - **Keine sensiblen Daten** auf der Seite oder im Repo: keine Buchungsnummern, Adressen der gebuchten Unterkunft, Telefonnummern, Zugangsdaten.
@@ -116,9 +120,9 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ## Nächste Schritte
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
-3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.6).
+3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.6.1).
 4. ✓ Erledigt 30.10.2026: Direktlinks zu allen Inseraten (1.5), drei weitere Unterkünfte + Faktencheck (1.6).
-5. Gruppe über die 7 Optionen abstimmen lassen, dann Vermieteranfragen an die Favoriten.
+5. Gruppe über die 9 Optionen abstimmen lassen, dann Vermieteranfragen an die Favoriten.
 6. Danach weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
 
 ## Entscheidungslog
@@ -135,3 +139,4 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Link + Umfrage in der WhatsApp-Gruppe (Kopier-Button funktioniert am iPhone). Vermieteranfragen erst nach Rückmeldung der Gruppe zur App; Programmrecherche (Touren, Klettersteige, Hütten, Restaurants) startet jetzt.
 - 30.10.2026: Öffentliches Repo `Aod-fi/annaberg-2027` mit GitHub Pages (main / Root); `CLAUDE.md` und `MASTERPROMPT.md` sind mit im Repo. Commits mit GitHub-Noreply-Adresse (lokale git-Config), damit keine private Mailadresse öffentlich wird.
 - 30.10.2026: Unterkünfte im Umkreis (Abtenau, Filzmoos) sind ok; drei weitere Optionen aufgenommen, alle Einträge gegen die Inserate geprüft.
+- 04.11.2026: Gruppe noch unentschieden; Auswahl auf 9 Optionen erweitert, echte Wochenpreise im Feld `woche`/`wocheInfo` (ersetzt die „ab“-Anzeige). Richlegghof am Termin belegt.

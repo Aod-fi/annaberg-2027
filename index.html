@@ -154,7 +154,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       <div class="plus" id="plus"></div>
     </div>
 
-    <h2>Geprüft, aber ohne Hund</h2>
+    <h2>Geprüft und ausgeschieden</h2>
     <div class="card"><ul class="excluded" id="excluded"></ul></div>
   </section>
 
@@ -203,7 +203,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "quelle": ["Open-Meteo (Wetterarchiv und Vorhersage, CC BY 4.0)", "https://open-meteo.com/"]
     },
     "facts": ["Sa 11.–Sa 18.09.2027", "7 Nächte", "4 Personen + Golden Retriever", "2 Autos", "Budget 1.000–2.000 €"],
-    "stand": "Stand 30.10.2026 · Preise sind „ab“-Preise der Portale, der echte Wochenpreis für September kommt erst mit der Anfrage."
+    "stand": "Stand 04.11.2026 · Wochenpreise für 4 Personen laut Portal am 11.–18.09.2027, nichts ist reserviert. Der endgültige Preis kommt mit der Buchung oder Anfrage."
   },
   "uebersicht": {
     "einleitung": "Hier planen wir zusammen unsere Wanderwoche im Lammertal. Schau dir Unterkünfte und Programm an – abgestimmt wird vorerst in unserer WhatsApp-Gruppe. Tipp: Seite zum Home-Bildschirm hinzufügen.",
@@ -224,6 +224,14 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
     "unterkunftStatus": "Vorauswahl, noch nicht gebucht"
   },
   "versionen": [
+    {
+      "nr": "1.6.1",
+      "datum": "04.11.2026",
+      "neu": [
+        "Drei weitere Unterkünfte: Bauernhaus Lammertal, Schoberhof und große Ferienwohnung in Filzmoos",
+        "Echte Wochenpreise und Verfügbarkeit für unseren Termin; Richlegghof ist belegt und ausgeschieden"
+      ]
+    },
     {
       "nr": "1.6",
       "datum": "30.10.2026",
@@ -317,9 +325,12 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "ort": "Annaberg-Lungötz, Alleinlage oberhalb Ortsteil Promberg",
       "lat": 47.4970, "lng": 13.4145, "lageUngefaehr": true,
       "ab": 107,
+      "woche": 1093,
+      "wocheInfo": "Dazu Reinigung 120 €, Hund 105 €, Bettwäsche 48 €, Ortstaxe – zusammen grob 1.500 €",
       "bewertung": "9,8/10 (12 Bewertungen)",
       "kurz": "Urig-rustikales Bauernhaus (im Inserat „Almliesl Lung“), ca. 120 m², ruhige Alleinlage auf einer Anhöhe mit Blick aufs Tennengebirge. Kachelofen, alte Holzdielen, Saunahütte im Garten.",
       "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
         ["ok", "Hunde willkommen (Hunde-Inserat)"],
         ["ok", "4 Schlafzimmer: Zweibettzimmer, 2× Doppelzimmer, 1× Doppelbett + Stockbett – jeder ein eigenes Zimmer"],
         ["ok", "2 Bäder mit Dusche + WC (je eins pro Etage)"],
@@ -339,9 +350,12 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "ort": "Annaberg, Feriendorf am Hang oberhalb des Orts",
       "lat": 47.51472, "lng": 13.45087, "lageUngefaehr": false,
       "ab": 114,
+      "woche": 1161,
+      "wocheInfo": "Reinigung und Bettwäsche inklusive, mit Ortstaxe grob 1.300 €, Hundegebühr nachfragen",
       "bewertung": "10/10 (1 Bewertung, Sept. 2026, auf ferienwohnungen.de)",
       "kurz": "Holzchalet, 90 m², in einer Anlage mit Hallenbad, Sauna, Café und Minimarkt. Laut Inserat ca. 500 m zum Lift (Donnerkogelbahn).",
       "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
         ["ok", "Hunde erlaubt"],
         ["ok", "3 Schlafzimmer: 2× Doppelbett, 1× zwei Einzelbetten"],
         ["ok", "2 Bäder (Dusche/WC + zweites Bad)"],
@@ -361,9 +375,12 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "ort": "Annaberg, Alpendorf Dachstein West",
       "lat": 47.5139, "lng": 13.4522, "lageUngefaehr": true,
       "ab": 165,
+      "woche": 1832,
+      "wocheInfo": "Reinigung und Bettwäsche inklusive, mit Ortstaxe knapp 2.000 €, Hundegebühr nachfragen",
       "bewertung": "9,6/10 (11 Bewertungen)",
       "kurz": "138 m², 4 Schlafzimmer, eigene finnische Sauna im Bad – plus Hallenbad und Sauna der Anlage.",
       "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
         ["ok", "Hunde willkommen (Hunde-Inserat)"],
         ["ok", "4 Schlafzimmer: 3× Doppelbett, 1× Doppelbett + Stockbett – jeder ein eigenes Zimmer"],
         ["ok", "2 Bäder + separates WC"],
@@ -373,7 +390,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       ],
       "plus": ["eigene Sauna", "Hallenbad der Anlage", "Terrasse + Balkon", "WLAN", "Mobilitätsticket inklusive", "kostenlose Stornierung"],
       "fragen": ["Wochenpreis inkl. Nebenkosten?", "Hund allein erlaubt?"],
-      "contra": ["Teuerste Option – geschätzt eher am oberen Budgetrand", "Fast nur Doppelbetten (ein Zimmer zusätzlich mit Stockbett)"],
+      "contra": ["Teuerste Option – am oberen Budgetrand", "Fast nur Doppelbetten (ein Zimmer zusätzlich mit Stockbett)"],
       "link": "https://www.ferienwohnungen.de/d/70247469",
       "linkText": "Zum Inserat (ferienwohnungen.de)"
     },
@@ -386,6 +403,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "bewertung": "keine Bewertungen auf dem Portal",
       "kurz": "65 m² Ferienwohnung am Waldrand am Fuß der Bischofsmütze, ca. 700 m zur Donnerkogelbahn, Wanderungen direkt ab Haus.",
       "checks": [
+        ["q", "Frei am 11.–18.09.2027? Online nicht prüfbar, nachfragen"],
         ["q", "Haustiere nach Absprache"],
         ["q", "2 Schlafzimmer, beide mit Doppelbett"],
         ["no", "Nur 1 Bad – separates WC nicht erwähnt"],
@@ -403,10 +421,11 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "name": "Haus Bergfried, 4-Raum-Appartement",
       "ort": "Filzmoos, ruhiger Ortsrand, ca. 40 Min. Fahrt nach Annaberg",
       "lat": 47.4488, "lng": 13.5221, "lageUngefaehr": true,
-      "ab": 85,
+      "ab": null,
       "bewertung": "4,8/5 (3 Bewertungen)",
       "kurz": "110 m² Appartement in einem Gästehaus mit Garten und Blick auf Filzmoos. 3 Schlafzimmer mit jeweils eigenem Bad/WC, großer Wohnraum mit Küche, extra WC. Wanderbus-Haltestelle vor dem Haus.",
       "checks": [
+        ["ok", "Laut Kalender frei am 11.–18.09.2027 (zuletzt gepflegt 18.10.2026)"],
         ["ok", "Hunde willkommen (20 €/Nacht)"],
         ["ok", "3 Schlafzimmer mit Doppelbett, zwei davon zusätzlich mit Klappbett/Schlafsofa"],
         ["ok", "3 Bäder mit Dusche + WC, dazu separates WC"],
@@ -416,7 +435,7 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       ],
       "plus": ["Garten mit Grill", "Terrasse + Balkon", "WLAN", "Waschmaschine", "Pool", "Bettwäsche + Handtücher inklusive", "bis 60 Tage vorher kostenlos stornierbar"],
       "fragen": ["Wochenpreis für das 4-Raum-Appartement 11.–18.09.2027?", "Platz für 2 Autos?", "Darf der Hund einige Stunden allein bleiben?"],
-      "contra": ["Der „ab“-Preis gilt vermutlich für die kleinste Wohnung im Haus – Preis fürs große Appartement erfragen", "Gästehaus mit weiteren Wohnungen und Zimmern, kein eigenes Haus", "Weiter weg (ca. 30 km bis Annaberg), dafür nah an Ramsau mit den Klettersteigen", "Laut Inserat zusätzlich: Endreinigung 70 €, Hund 20 €/Nacht, Ortstaxe 3,10 €/Nacht ab 15 J."],
+      "contra": ["Preis fürs große Appartement nur auf Anfrage (die „ab 85 €“ im Inserat gelten vermutlich für die kleinste Wohnung)", "Gästehaus mit weiteren Wohnungen und Zimmern, kein eigenes Haus", "Weiter weg (ca. 30 km bis Annaberg), dafür nah an Ramsau mit den Klettersteigen", "Laut Inserat zusätzlich: Endreinigung 70 €, Hund 20 €/Nacht, Ortstaxe 3,10 €/Nacht ab 15 J."],
       "link": "https://www.ferienhausmiete.de/35670.htm",
       "linkText": "Zum Inserat (ferienhausmiete.de)"
     },
@@ -426,9 +445,12 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "ort": "Abtenau, Bauernhof am Ortsrand, ca. 20 Min. Fahrt nach Annaberg",
       "lat": 47.5790, "lng": 13.3349, "lageUngefaehr": true,
       "ab": 192,
+      "woche": 1302,
+      "wocheInfo": "Mit Ortstaxe grob 1.450 €, Reinigung und Hund nachfragen",
       "bewertung": "9,7/10 (26 Bewertungen, über Booking.com)",
       "kurz": "75 m² Ferienwohnung auf einem Hof mit Garten und Bergblick. 2 Schlafzimmer mit je einem großen Doppelbett und einem Einzelbett, 2 Bäder, Schlafsofa im Wohnraum.",
       "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
         ["ok", "Haustiere erlaubt"],
         ["ok", "2 Schlafzimmer, je Doppelbett + Einzelbett – getrennt schlafen möglich"],
         ["ok", "2 Bäder"],
@@ -443,28 +465,83 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
       "linkText": "Zum Inserat (ferienwohnungen.de)"
     },
     {
-      "id": "richlegghof-filzmoos",
-      "name": "Richlegghof, Appartement im Holzblockhaus",
-      "ort": "Filzmoos-Neuberg, Bauernhof oberhalb des Orts, ca. 30 Min. Fahrt nach Annaberg",
-      "lat": 47.4311, "lng": 13.4648, "lageUngefaehr": true,
-      "ab": 114,
+      "id": "bauernhaus-lammertal",
+      "name": "Bauernhaus Lammertal",
+      "ort": "St. Martin am Tennengebirge, ca. 10 Min. Fahrt nach Annaberg",
+      "lat": 47.4711, "lng": 13.3820, "lageUngefaehr": true,
+      "ab": 226,
+      "woche": 1582,
+      "wocheInfo": "Dazu Nebenkostenpauschale 30–50 € pro Person (mit Reinigung, Bettwäsche, Strom), Hund 30 € pro Aufenthalt, Ortstaxe 3,50 € – zusammen grob 1.850–1.900 €",
       "bewertung": "noch keine Bewertungen auf dem Portal",
-      "kurz": "60 m² Appartement auf einem Bauernhof mit Blick auf die Bischofsmütze. 2 Schlafzimmer, jedes mit eigener Dusche/WC, Balkon. Wanderungen direkt ab Hof.",
+      "kurz": "Großes altes Bauernhaus, 180 m², mit Kachelofen und Schwedenofen, Wohnküche und eigenem Esszimmer. Großes Grundstück, Hofladen des Eigentümers, Gasthäuser zu Fuß erreichbar.",
       "checks": [
-        ["q", "Haustiere nach Absprache"],
-        ["q", "2 Schlafzimmer, beide mit Doppelbett"],
-        ["ok", "2 Bäder mit Dusche + WC (je eins pro Schlafzimmer)"],
-        ["ok", "Küche mit Geschirrspüler und Backofen"],
-        ["q", "Parkplatz vorhanden, Anzahl unklar"]
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
+        ["ok", "Haustiere willkommen, bis zu 3 Hunde"],
+        ["ok", "5 Schlafzimmer mit Doppelbett – jeder ein eigenes Zimmer"],
+        ["ok", "2 Bäder mit Dusche + 3 separate WCs"],
+        ["ok", "Küche mit Geschirrspüler, Holz- und E-Herd, Esszimmer"],
+        ["q", "Parkplätze direkt beim Haus – ob für 2 Autos, nachfragen"],
+        ["q", "Hund allein erlaubt? nachfragen"]
       ],
-      "plus": ["Bergblick", "Balkon", "Garten mit Grill", "WLAN", "Waschmaschine", "Bettwäsche + Handtücher inklusive"],
-      "fragen": ["Hund erlaubt? Allein lassen möglich?", "Wochenpreis 11.–18.09.2027?", "Platz für 2 Autos?", "Esstisch für 4?"],
-      "contra": ["Knapp: 60 m², nur Doppelbetten", "Hund nur nach Absprache", "Laut Inserat zusätzlich: Ortstaxe 3,10 €/Nacht pro Erwachsenem"],
-      "link": "https://www.ferienhausmiete.de/17544.htm",
-      "linkText": "Zum Inserat (ferienhausmiete.de)"
+      "plus": ["Garten mit Grill", "Balkon", "Terrasse", "Kachelofen", "WLAN", "Hofladen"],
+      "fragen": ["Beträgt die Nebenkostenpauschale 30 oder 50 € pro Person? (Das Inserat nennt beides)", "Platz für 2 Autos?", "Darf der Hund einige Stunden allein bleiben?"],
+      "contra": ["Für 10 Personen ausgelegt – viel Platz für uns", "Nur Doppelbetten", "Noch keine Gästebewertungen", "Kaution 300 €"],
+      "link": "https://www.ferienwohnungen.de/d/64960711",
+      "linkText": "Zum Inserat (ferienwohnungen.de)"
+    },
+    {
+      "id": "schoberhof-filzmoos",
+      "name": "Ferienwohnung Schoberhof",
+      "ort": "Filzmoos, ca. 35 Min. Fahrt nach Annaberg",
+      "lat": 47.4481, "lng": 13.4714, "lageUngefaehr": true,
+      "ab": 150,
+      "woche": 1048,
+      "wocheInfo": "Mit Ortstaxe grob 1.150 €, Reinigung und Hund nachfragen – die günstigste Option",
+      "bewertung": "9,2/10 (6 Bewertungen, über Booking.com)",
+      "kurz": "100 m² Ferienwohnung mit Garten, Terrasse und Balkon. 3 Schlafzimmer mit je einem großen Doppelbett, eins davon zusätzlich mit Einzelbett.",
+      "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
+        ["ok", "Haustiere erlaubt"],
+        ["ok", "3 Schlafzimmer, eins davon mit zusätzlichem Einzelbett"],
+        ["ok", "2 Bäder, extra WC"],
+        ["ok", "Küche mit Geschirrspüler"],
+        ["q", "Kostenloser Parkplatz – ob für 2 Autos, nachfragen"],
+        ["q", "Hund allein erlaubt? nachfragen"]
+      ],
+      "plus": ["Garten", "Terrasse", "Balkon", "Bergblick", "WLAN"],
+      "fragen": ["Sind Endreinigung und Hund im Preis enthalten?", "Platz für 2 Autos?", "Darf der Hund einige Stunden allein bleiben?", "Esstisch für 4?"],
+      "contra": ["Wohnung statt Haus", "Weiter weg (ca. 26 km bis Annaberg), dafür näher an Ramsau", "Buchung läuft über Booking.com, Nebenkosten im Inserat nicht genannt"],
+      "link": "https://www.ferienwohnungen.de/d/39371477",
+      "linkText": "Zum Inserat (ferienwohnungen.de)"
+    },
+    {
+      "id": "filzmoos-125",
+      "name": "Große Ferienwohnung in Filzmoos",
+      "ort": "Filzmoos, ca. 35–40 Min. Fahrt nach Annaberg",
+      "lat": 47.4375, "lng": 13.5223, "lageUngefaehr": true,
+      "ab": 222,
+      "woche": 1551,
+      "wocheInfo": "Mit Ortstaxe grob 1.650 €, Reinigung und Hund nachfragen",
+      "bewertung": "9,6/10 (12 Bewertungen, über Booking.com)",
+      "kurz": "125 m² Ferienwohnung mit Balkon und Berg- und Gartenblick. 3 Schlafzimmer mit je einem großen Doppelbett, dazu ein Schlafsofa.",
+      "checks": [
+        ["ok", "Frei am 11.–18.09.2027 (Stand 04.11.2026)"],
+        ["ok", "Haustiere erlaubt"],
+        ["ok", "3 Schlafzimmer – eigene Zimmer möglich"],
+        ["ok", "2 Bäder"],
+        ["ok", "Küche mit Geschirrspüler"],
+        ["q", "Kostenloser Parkplatz – ob für 2 Autos, nachfragen"],
+        ["q", "Hund allein erlaubt? nachfragen"]
+      ],
+      "plus": ["Balkon", "Bergblick", "Garten", "WLAN", "Waschmaschine", "Selbst-Check-in"],
+      "fragen": ["Sind Endreinigung und Hund im Preis enthalten?", "Platz für 2 Autos?", "Darf der Hund einige Stunden allein bleiben?", "Esstisch für 4?"],
+      "contra": ["Wohnung statt Haus", "Weiter weg (ca. 29 km bis Annaberg)", "Buchung läuft über Booking.com, Nebenkosten im Inserat nicht genannt"],
+      "link": "https://www.ferienwohnungen.de/d/46138782",
+      "linkText": "Zum Inserat (ferienwohnungen.de)"
     }
   ],
   "ohneHund": [
+    ["Richlegghof, Appartement im Holzblockhaus (Filzmoos)", "am 11.–18.09.2027 belegt (laut Kalender 05.–14.09.)", "https://www.ferienhausmiete.de/17544.htm"],
     ["Haus Dolomitenblick (Alpendorf)", "4,9/5 bei 32 Bewertungen, Zweibettzimmer, eingezäunter Garten – leider keine Haustiere", "https://www.ferienhausmiete.de/174583.htm"],
     ["Chalet Alpenstern", "Holzblockhaus mit Sauna und Dampfbad – keine Haustiere", "https://www.ferienhausmiete.de/59462.htm"],
     ["Chalet Rosa Maria", "4 Schlafzimmer, Sauna, Bad + separates WC – keine Haustiere", "https://www.ferienhausmiete.de/413768.htm"],
@@ -736,7 +813,9 @@ $('#taxe').innerHTML = esc(DATA.kurtaxe.hinweis) + ' Quellen: ' +
 const icon = {ok:'✓', q:'?', no:'✗'};
 $('#cards').innerHTML = DATA.unterkuenfte.map((u, i) => {
   const taxe = DATA.kurtaxe.proPersonNacht * persons * nights;
-  const price = u.ab
+  const price = u.woche
+    ? `<b>${eur(u.woche)} für unsere Woche</b><span>${esc(u.wocheInfo)}</span>`
+    : u.ab
     ? `<b>ab ${u.ab} € / Nacht</b><span>≈ ${eur(u.ab * nights + taxe)} pro Woche (Miete + Ortstaxe), ohne Reinigung &amp; Hund</span>`
     : `<b>Preis auf Anfrage</b>`;
   return `<article class="card" id="u-${esc(u.id)}">
