@@ -1,7 +1,7 @@
 # CLAUDE.md – Projekt „Annaberg 2027“
 
 Diese Datei ist das Projektgedächtnis für Claude Code. Sie wird bei jedem Start gelesen.
-Stand: 04.11.2026 (App-Version 1.6.1). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
+Stand: 11.11.2026 (App-Version 1.6.2). Bitte bei wichtigen Entscheidungen aktuell halten (Abschnitt „Entscheidungslog“).
 
 ## Arbeitsweise mit Uwe (verbindlich)
 - Sprache: Deutsch.
@@ -85,7 +85,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ### Versionierung
 - Versionsnummer + „Was ist neu“ stehen im JSON `versionen` (neueste zuerst) und werden in der Übersicht angezeigt.
 - Bei jeder Veröffentlichung mit sichtbarer Änderung: neuen Eintrag oben in `versionen` (Nummer x.y, Datum, 1–3 Punkte in Gruppen-Sprache), committen, Git-Tag `vx.y` setzen und mit pushen (`git push origin main --tags`). Kleine Inhaltskorrekturen ohne neue Funktion: zweite Stelle hochzählen; neue Bereiche/Funktionen: ebenfalls zweite Stelle; großer Umbau (z. B. Stufe 2 Supabase): 2.0.
-- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung · 1.5 Direktlinks zu allen Unterkünften · 1.6 drei weitere Unterkünfte + Faktencheck · 1.6.1 Wochenpreise, Verfügbarkeit, drei weitere Unterkünfte (Inhaltsstände ohne neue Funktion: dritte Stelle, so von Uwe gewünscht).
+- Bisher: 1.0 erste Version · 1.1 Icon/Karte/Ortstaxe · 1.2 Programm · 1.3 Filter/Route/Wetter · 1.4 Übersicht + Versionierung · 1.5 Direktlinks zu allen Unterkünften · 1.6 drei weitere Unterkünfte + Faktencheck · 1.6.1 Wochenpreise, Verfügbarkeit, drei weitere Unterkünfte · 1.6.2 Neuprüfung 11.11.2026 (Inhaltsstände ohne neue Funktion: dritte Stelle, so von Uwe gewünscht).
 
 ### Grundregeln
 - **Keine sensiblen Daten** auf der Seite oder im Repo: keine Buchungsnummern, Adressen der gebuchten Unterkunft, Telefonnummern, Zugangsdaten.
@@ -120,7 +120,7 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 ## Nächste Schritte
 1. ✓ Erledigt 30.10.2026: Repo `Aod-fi/annaberg-2027`, live unter https://aod-fi.github.io/annaberg-2027/
 2. ✓ Erledigt 30.10.2026: Link in die WhatsApp-Gruppe, Umfrage zu den Unterkünften.
-3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.6.1).
+3. ✓ Erledigt 30.10.2026: Programm-Tab, Filter, Route zum Start, Wetter, Übersicht, Versionierung (aktuell Version 1.6.2).
 4. ✓ Erledigt 30.10.2026: Direktlinks zu allen Inseraten (1.5), drei weitere Unterkünfte + Faktencheck (1.6).
 5. Gruppe über die 9 Optionen abstimmen lassen, dann Vermieteranfragen an die Favoriten.
 6. Danach weiter mit einem Punkt aus „Offene Punkte“ – Uwe entscheidet, womit (neuer Thread).
@@ -140,3 +140,4 @@ Wanderurlaub in **Annaberg im Lammertal** (Annaberg-Lungötz, Salzburger Land, �
 - 30.10.2026: Öffentliches Repo `Aod-fi/annaberg-2027` mit GitHub Pages (main / Root); `CLAUDE.md` und `MASTERPROMPT.md` sind mit im Repo. Commits mit GitHub-Noreply-Adresse (lokale git-Config), damit keine private Mailadresse öffentlich wird.
 - 30.10.2026: Unterkünfte im Umkreis (Abtenau, Filzmoos) sind ok; drei weitere Optionen aufgenommen, alle Einträge gegen die Inserate geprüft.
 - 04.11.2026: Gruppe noch unentschieden; Auswahl auf 9 Optionen erweitert, echte Wochenpreise im Feld `woche`/`wocheInfo` (ersetzt die „ab“-Anzeige). Richlegghof am Termin belegt.
+- 11.11.2026: Neuprüfung aller 9 Unterkünfte für 11.–18.09.2027: alle frei, Portalpreise unverändert (Schipplegg weiterhin ohne Online-Kalender, Bergfried-Kalender Stand 18.10.2026). Regel von Uwe: immer 7–10 freie Unterkünfte, bei Ausfall Ersatz suchen.
